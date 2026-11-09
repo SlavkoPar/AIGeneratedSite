@@ -1,0 +1,19 @@
+# Render Blueprint for this generation.
+# Deploy: Render dashboard -> New -> Blueprint -> pick this repo, and set
+# "Blueprint file path" to generations/20261109-101252-generate-site-structure-with-header-navb/render.yaml.
+# The code must listen on 0.0.0.0:$PORT to pass Render's health check.
+services:
+  - type: web
+    name: generate-site-structure-20261109101252-py
+    runtime: python
+    plan: free
+    rootDir: generations/20261109-101252-generate-site-structure-with-header-navb
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+  - type: web
+    name: generate-site-structure-20261109101252-js
+    runtime: node
+    plan: free
+    rootDir: generations/20261109-101252-generate-site-structure-with-header-navb
+    buildCommand: npm install
+    startCommand: node main.js
