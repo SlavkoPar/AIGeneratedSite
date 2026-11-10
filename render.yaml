@@ -1,5 +1,5 @@
 # Render Blueprint (auto-updated on every generation) - deploys the latest one:
-# generations/20261110-070714-generate-site-with-header-navbar-left-si
+# generations/20261110-072213-generate-site-with-header-navbar-left-si
 # Deploy: Render dashboard -> New -> Blueprint -> pick this repo (default path render.yaml).
 # The code must listen on 0.0.0.0:$PORT to pass Render's health check.
 services:
@@ -7,13 +7,13 @@ services:
     name: latest-py
     runtime: python
     plan: free
-    rootDir: generations/20261110-070714-generate-site-with-header-navbar-left-si
+    rootDir: generations/20261110-072213-generate-site-with-header-navbar-left-si
     buildCommand: pip install -r requirements.txt
     startCommand: python main.py
   - type: web
     name: latest-js
     runtime: node
     plan: free
-    rootDir: generations/20261110-070714-generate-site-with-header-navbar-left-si
+    rootDir: generations/20261110-072213-generate-site-with-header-navbar-left-si
     buildCommand: npm install
     startCommand: node main.js
