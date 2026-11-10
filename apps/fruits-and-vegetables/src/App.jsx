@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { bySlug, fruits, items, routeFor, vegetables } from './data.js'
 
@@ -32,22 +32,47 @@ function Grid({ list }) {
   )
 }
 
+function Group({ id, title, to, list, open, onToggle }) {
+  return (
+    <section className="group">
+      <h2>
+        <button
+          type="button"
+          className="toggle"
+          aria-expanded={open}
+          aria-controls={`group-${id}`}
+          aria-label={`${open ? 'Collapse' : 'Expand'} ${title}`}
+          onClick={onToggle}
+        >
+          <span className={open ? 'chevron open' : 'chevron'} aria-hidden="true">▸</span>
+        </button>
+        <Link to={to}>{title}</Link> <span className="count">{list.length}</span>
+      </h2>
+      <div id={`group-${id}`} hidden={!open}>
+        <Grid list={list} />
+      </div>
+    </section>
+  )
+}
+
 function Home() {
   usePageTitle('')
+  const [open, setOpen] = useState({ fruits: true, vegetables: true })
+  const allOpen = open.fruits && open.vegetables
+  const setAll = (value) => setOpen({ fruits: value, vegetables: value })
   return (
     <>
       <section className="hero">
         <h1>Fruits &amp; Vegetables</h1>
         <p>A small guide to {items.length} everyday fruits and vegetables. Pick one to see when it is in season, what it offers nutritionally, and a tip for using it.</p>
+        <button type="button" className="toggle-all" onClick={() => setAll(!allOpen)}>
+          {allOpen ? 'Collapse all' : 'Expand all'}
+        </button>
       </section>
-      <section>
-        <h2><Link to="/fruits">Fruits</Link> <span className="count">{fruits.length}</span></h2>
-        <Grid list={fruits} />
-      </section>
-      <section>
-        <h2><Link to="/vegetables">Vegetables</Link> <span className="count">{vegetables.length}</span></h2>
-        <Grid list={vegetables} />
-      </section>
+      <Group id="fruits" title="Fruits" to="/fruits" list={fruits} open={open.fruits}
+        onToggle={() => setOpen((o) => ({ ...o, fruits: !o.fruits }))} />
+      <Group id="vegetables" title="Vegetables" to="/vegetables" list={vegetables} open={open.vegetables}
+        onToggle={() => setOpen((o) => ({ ...o, vegetables: !o.vegetables }))} />
     </>
   )
 }

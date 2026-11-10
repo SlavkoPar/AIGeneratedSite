@@ -122,3 +122,18 @@ h2 { font-size: 1.4rem; margin: 32px 0 12px; }
 .pager { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); }
 
 .site-footer { padding: 24px 0; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+
+.toggle, .toggle-all {
+  font: inherit;
+  color: var(--fg);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.toggle { width: 32px; height: 32px; margin-right: 8px; padding: 0; vertical-align: middle; }
+.toggle:hover, .toggle-all:hover { border-color: var(--link); }
+.toggle-all { padding: 6px 14px; margin-top: 8px; }
+.chevron { display: inline-block; transition: transform .15s; }
+.chevron.open { transform: rotate(90deg); }
+[hidden] { display: none !important; }
