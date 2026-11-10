@@ -1,0 +1,19 @@
+# Render Blueprint for this generation.
+# Deploy: Render dashboard -> New -> Blueprint -> pick this repo, and set
+# "Blueprint file path" to generations/20261110-070714-generate-site-with-header-navbar-left-si/render.yaml.
+# The code must listen on 0.0.0.0:$PORT to pass Render's health check.
+services:
+  - type: web
+    name: generate-site-with-heade-20261110070714-py
+    runtime: python
+    plan: free
+    rootDir: generations/20261110-070714-generate-site-with-header-navbar-left-si
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+  - type: web
+    name: generate-site-with-heade-20261110070714-js
+    runtime: node
+    plan: free
+    rootDir: generations/20261110-070714-generate-site-with-header-navbar-left-si
+    buildCommand: npm install
+    startCommand: node main.js
