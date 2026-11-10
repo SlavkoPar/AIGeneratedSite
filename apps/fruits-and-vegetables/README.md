@@ -1,11 +1,13 @@
 # Fruits & Vegetables
 
-Vite + React guide with a page for each fruit and vegetable (data in `src/data.js`).
+Vite + React + TypeScript guide with a page for each fruit and vegetable (data in `src/data.ts`).
 
-- `npm install && npm run dev` to work on it locally.
-- `npm run build` writes `dist/` and then generates one real `index.html` per route
+- `npm install && npm run dev` to work on it locally (served at `/AIGeneratedSite/`).
+- `npm run build` type-checks, builds `dist/`, then generates one real `index.html` per route
   (`dist/fruit/apple/index.html`, ...), plus `404.html` and `sitemap.xml`.
-- The published build lives in `sites/fruits-and-vegetables/` and is served by GitHub Pages at
-  https://slavkopar.github.io/AIGeneratedSite/sites/fruits-and-vegetables/
-- To republish: build, then copy `dist/` over `sites/fruits-and-vegetables/`.
-  The base path is set in `vite.config.js`.
+- `npm run deploy` builds and publishes `dist/` to the `gh-pages` branch with the
+  [gh-pages](https://www.npmjs.com/package/gh-pages) package.
+- The base path lives in `site.config.ts` (default `/AIGeneratedSite/`, the repository name,
+  case-sensitive). Override with `VITE_BASE` to serve from a subfolder.
+
+GitHub Pages must be set to deploy from the `gh-pages` branch (repo Settings -> Pages).

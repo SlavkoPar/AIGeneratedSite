@@ -5,11 +5,11 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { fruits, items, routeFor, vegetables } from '../src/data.js'
+// Node (>= 22.18) runs .ts files directly by stripping types, so we can reuse the typed data.
+import { base, origin } from '../site.config.ts'
+import { fruits, items, routeFor, vegetables } from '../src/data.ts'
 
 const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
-const origin = 'https://slavkopar.github.io'
-const base = '/AIGeneratedSite/sites/fruits-and-vegetables/'
 const template = readFileSync(join(dist, 'index.html'), 'utf8')
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')

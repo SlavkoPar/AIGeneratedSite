@@ -1,6 +1,8 @@
+import type { Item } from './types'
+
 // type: 'fruit' | 'vegetable' (culinary sense). Calories are approximate, per 100 g raw.
 // Seasons are for temperate Northern Hemisphere climates.
-export const items = [
+export const items: Item[] = [
   // ---------- Fruits ----------
   { slug: 'apple', name: 'Apple', emoji: '🍎', type: 'fruit', color: '#e5484d', season: 'Autumn', calories: 52, nutrients: ['Fibre', 'Vitamin C', 'Potassium'], description: 'Crisp, sweet-tart fruit that grows on trees in the rose family. Thousands of varieties exist, from tart Granny Smith to sweet Fuji.', tip: 'Store in the fridge; apples release ethylene that ripens other produce, so keep them apart.' },
   { slug: 'banana', name: 'Banana', emoji: '🍌', type: 'fruit', color: '#f5c518', season: 'Year-round', calories: 89, nutrients: ['Potassium', 'Vitamin B6', 'Vitamin C'], description: 'A soft, sweet tropical fruit that grows in hanging clusters. The plant is technically a giant herb, not a tree.', tip: 'Ripen at room temperature; the peel browns in the fridge but the flesh stays fine.' },
@@ -51,7 +53,7 @@ export const items = [
 
 export const fruits = items.filter((i) => i.type === 'fruit')
 export const vegetables = items.filter((i) => i.type === 'vegetable')
-export const bySlug = Object.fromEntries(items.map((i) => [i.slug, i]))
+export const bySlug: Record<string, Item> = Object.fromEntries(items.map((i) => [i.slug, i]))
 
 // Route used in links and by the build step that generates one HTML page per item.
-export const routeFor = (item) => `${item.type}/${item.slug}`
+export const routeFor = (item: Item): string => `${item.type}/${item.slug}`
