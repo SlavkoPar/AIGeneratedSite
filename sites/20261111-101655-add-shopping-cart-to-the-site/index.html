@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ember &amp; Oak — Home Goods Shop</title>
+<meta name="description" content="Small-batch home goods with a built-in shopping cart.">
+<style>
+:root{--bg:#faf7f2;--card:#fff;--ink:#2a2420;--muted:#6f655d;--accent:#b5562b;--accent-d:#8f4220;--line:#e8e0d6;--radius:14px;--shadow:0 6px 24px rgba(42,36,32,.08)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+body.locked{overflow:hidden}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:100}
+.skip:focus{left:1rem}
+.wrap{max-width:1150px;margin:0 auto;padding:0 1.25rem}
+header{position:sticky;top:0;z-index:20;background:rgba(250,247,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
+.logo{font-weight:800;font-size:1.3rem;text-decoration:none;letter-spacing:-.02em}
+.logo span{color:var(--accent)}
+.nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:var(--muted);font-weight:500}
+.nav ul a:hover{color:var(--ink)}
+.cart-btn{position:relative;display:flex;align-items:center;gap:.5rem;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:.55rem 1rem;font-weight:600}
+.cart-btn:hover{background:#000}
+.badge{min-width:1.4rem;height:1.4rem;padding:0 .35rem;border-radius:999px;background:var(--accent);color:#fff;font-size:.78rem;display:inline-grid;place-items:center}
+.badge.bump{animation:bump .35s}
+@keyframes bump{50%{transform:scale(1.35)}}
+.hero{padding:4.5rem 0 3rem;display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.08;margin:0 0 1rem;letter-spacing:-.03em}
+.hero p{color:var(--muted);font-size:1.1rem;max-width:34rem}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:.8rem 1.4rem;font-weight:600;text-decoration:none}
+.btn:hover{background:var(--accent-d)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ink);background:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.hero-art{aspect-ratio:1;border-radius:28px;background:radial-gradient(circle at 30% 30%,#f2c49b,#b5562b 70%);display:grid;place-items:center;font-size:8rem;box-shadow:var(--shadow)}
+.section-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem;margin:2rem 0 1.25rem}
+.section-head h2{margin:0;font-size:1.9rem;letter-spacing:-.02em}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:.4rem .9rem;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.25rem;padding-bottom:3rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.thumb{aspect-ratio:4/3;display:grid;place-items:center;font-size:4rem}
+.card-body{padding:1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.card h3{margin:0;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
+.price{font-weight:700;font-size:1.1rem}
+.add{background:var(--ink);color:#fff;border:0;border-radius:8px;padding:.5rem .85rem;font-weight:600}
+.add:hover{background:var(--accent)}
+.add.added{background:#3c7a4a}
+.about{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:3rem 0}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.features h3{margin:.3rem 0}
+.features p{color:var(--muted);margin:0}
+footer{padding:2rem 0;color:var(--muted);font-size:.9rem;text-align:center}
+/* Cart drawer */
+.overlay{position:fixed;inset:0;background:rgba(20,16,12,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--card);z-index:50;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease;box-shadow:-10px 0 40px rgba(0,0,0,.15)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line)}
+.drawer-head h2{margin:0;font-size:1.25rem}
+.icon-btn{background:none;border:0;width:2.4rem;height:2.4rem;border-radius:8px;font-size:1.4rem;line-height:1;color:var(--ink)}
+.icon-btn:hover{background:var(--bg)}
+.items{flex:1;overflow-y:auto;padding:.5rem 1.25rem;margin:0;list-style:none}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:.85rem;padding:1rem 0;border-bottom:1px solid var(--line);align-items:center}
+.item .mini{width:64px;height:64px;border-radius:10px;display:grid;place-items:center;font-size:2rem}
+.item h3{margin:0;font-size:.98rem}
+.item .unit{color:var(--muted);font-size:.85rem}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;margin-top:.35rem}
+.qty button{background:none;border:0;width:1.9rem;height:1.9rem;font-size:1rem}
+.qty button:hover{background:var(--bg)}
+.qty output{min-width:1.8rem;text-align:center;font-weight:600}
+.item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem}
+.remove{background:none;border:0;color:var(--muted);font-size:.82rem;text-decoration:underline;padding:0}
+.remove:hover{color:var(--accent)}
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty div{font-size:3rem}
+.summary{border-top:1px solid var(--line);padding:1.1rem 1.25rem;display:grid;gap:.4rem;background:var(--bg)}
+.row{display:flex;justify-content:space-between}
+.row.total{font-weight:800;font-size:1.15rem;padding-top:.4rem;border-top:1px dashed var(--line);margin-top:.2rem}
+.ship-note{font-size:.85rem;color:var(--muted)}
+.progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.summary .btn{width:100%;margin-top:.5rem;text-align:center}
+.clear{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:.85rem;justify-self:center}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--ink);color:#fff;padding:.75rem 1.2rem;border-radius:10px;z-index:60;transition:transform .3s;box-shadow:var(--shadow)}
+.toast.show{transform:translate(-50%,0)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:2.5rem}.hero-art{max-width:260px;font-size:6rem}.nav ul{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+ <div class="wrap nav">
+  <a href="#" class="logo">Ember <span>&amp;</span> Oak</a>
+  <nav aria-label="Main"><ul><li><a href="#shop">Shop</a></li><li><a href="#about">About</a></li></ul></nav>
+  <button class="cart-btn" id="cartBtn" aria-haspopup="dialog" aria-controls="cart" aria-label="Open cart, 0 items">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+   <span>Cart</span><span class="badge" id="badge">0</span>
+  </button>
+ </div>
+</header>
+
+<main id="main">
+ <section class="wrap hero">
+  <div>
+   <h1>Warm goods for slow mornings.</h1>
+   <p>Hand-thrown mugs, small-batch candles and pantry staples, made by independent makers and shipped with care.</p>
+   <p><a class="btn" href="#shop">Shop the collection</a></p>
+  </div>
+  <div class="hero-art" aria-hidden="true">☕</div>
+ </section>
+
+ <section class="wrap" id="shop" aria-labelledby="shopTitle">
+  <div class="section-head">
+   <h2 id="shopTitle">Shop</h2>
+   <div class="filters" role="group" aria-label="Filter products" id="filters"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+ </section>
+
+ <section class="about" id="about">
+  <div class="wrap features">
+   <div><div aria-hidden="true">🚚</div><h3>Free shipping over $75</h3><p>Flat $6 shipping on smaller orders.</p></div>
+   <div><div aria-hidden="true">🌿</div><h3>Thoughtfully made</h3><p>Natural materials and plastic-free packaging.</p></div>
+   <div><div aria-hidden="true">↩️</div><h3>30-day returns</h3><p>Not quite right? Send it back, no fuss.</p></div>
+  </div>
+ </section>
+</main>
+
+<footer><div class="wrap">© <span id="yr"></span> Ember &amp; Oak. Demo store — no real payments are processed.</div></footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" tabindex="-1">
+ <div class="drawer-head">
+  <h2 id="cartTitle">Your cart</h2>
+  <button class="icon-btn" id="closeCart" aria-label="Close cart">×</button>
+ </div>
+ <ul class="items" id="items"></ul>
+ <div class="summary" id="summary"></div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+const PRODUCTS=[
+ {id:'mug',name:'Speckled Stoneware Mug',desc:'12 oz, hand-thrown, dishwasher safe.',price:28,cat:'Kitchen',icon:'☕',bg:'#f3e3d3'},
+ {id:'candle',name:'Cedar & Smoke Candle',desc:'Soy wax, 50-hour burn time.',price:24,cat:'Home',icon:'🕯️',bg:'#efe6da'},
+ {id:'beans',name:'House Blend Coffee',desc:'340 g whole beans, medium roast.',price:18,cat:'Pantry',icon:'🫘',bg:'#e7d6c4'},
+ {id:'board',name:'Oak Serving Board',desc:'Solid white oak, oiled finish.',price:46,cat:'Kitchen',icon:'🪵',bg:'#eadbc6'},
+ {id:'throw',name:'Wool Throw Blanket',desc:'Merino blend, 130 × 170 cm.',price:89,cat:'Home',icon:'🧶',bg:'#e9ddd5'},
+ {id:'honey',name:'Wildflower Honey',desc:'Raw, local, 400 g jar.',price:14,cat:'Pantry',icon:'🍯',bg:'#f6e6c3'},
+ {id:'tea',name:'Loose Leaf Chai',desc:'Spiced black tea, 100 g tin.',price:16,cat:'Pantry',icon:'🍵',bg:'#e3e6d4'},
+ {id:'vase',name:'Bud Vase Trio',desc:'Matte ceramic, set of three.',price:38,cat:'Home',icon:'🏺',bg:'#efdfd6'}
+];
+const FREE_SHIP=75,SHIP=6,TAX=0.08,KEY='emberoak-cart';
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString('en-US',{style:'currency',currency:'USD'});
+const byId=id=>PRODUCTS.find(p=>p.id===id);
+let cart={};
+try{cart=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){cart={}}
+Object.keys(cart).forEach(id=>{if(!byId(id)||!(cart[id]>0))delete cart[id]});
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}};
+
+// Filters + grid
+let filter='All';
+const cats=['All',...new Set(PRODUCTS.map(p=>p.cat))];
+$('#filters').innerHTML=cats.map(c=>`<button class="chip" aria-pressed="${c===filter}" data-cat="${c}">${c}</button>`).join('');
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;filter=b.dataset.cat;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));renderGrid()});
+function renderGrid(){
+ $('#grid').innerHTML=PRODUCTS.filter(p=>filter==='All'||p.cat===filter).map(p=>`
+ <article class="card">
+  <div class="thumb" style="background:${p.bg}" aria-hidden="true">${p.icon}</div>
+  <div class="card-body">
+   <h3>${p.name}</h3><p>${p.desc}</p>
+   <div class="card-foot"><span class="price">${fmt(p.price)}</span>
+   <button class="add" data-id="${p.id}" aria-label="Add ${p.name} to cart">Add to cart</button></div>
+  </div>
+ </article>`).join('');
+}
+$('#grid').addEventListener('click',e=>{
+ const b=e.target.closest('.add');if(!b)return;
+ add(b.dataset.id,1);
+ b.textContent='Added ✓';b.classList.add('added');
+ setTimeout(()=>{b.textContent='Add to cart';b.classList.remove('added')},1200);
+});
+
+// Cart logic
+function add(id,n){cart[id]=(cart[id]||0)+n;if(cart[id]>99)cart[id]=99;save();render();const b=$('#badge');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');toast(`${byId(id).name} added to cart`)}
+function setQty(id,q){if(q<=0)delete cart[id];else cart[id]=Math.min(q,99);save();render()}
+function totals(){
+ const count=Object.values(cart).reduce((a,b)=>a+b,0);
+ const sub=Object.entries(cart).reduce((s,[id,q])=>s+byId(id).price*q,0);
+ const ship=sub===0||sub>=FREE_SHIP?0:SHIP;
+ const tax=Math.round(sub*TAX*100)/100;
+ return{count,sub,ship,tax,total:sub+ship+tax};
+}
+function render(){
+ const t=totals();
+ $('#badge').textContent=t.count;
+ $('#cartBtn').setAttribute('aria-label',`Open cart, ${t.count} item${t.count===1?'':'s'}`);
+ $('#cartTitle').textContent=`Your cart (${t.count})`;
+ const ids=Object.keys(cart);
+ if(!ids.length){
+  $('#items').innerHTML=`<li class="empty"><div aria-hidden="true">🛒</div><p>Your cart is empty.</p><button class="btn ghost" data-act="browse">Continue shopping</button></li>`;
+  $('#summary').hidden=true;return;
+ }
+ $('#summary').hidden=false;
+ $('#items').innerHTML=ids.map(id=>{const p=byId(id),q=cart[id];return`
+ <li class="item">
+  <div class="mini" style="background:${p.bg}" aria-hidden="true">${p.icon}</div>
+  <div><h3>${p.name}</h3><div class="unit">${fmt(p.price)} each</div>
+   <div class="qty" role="group" aria-label="Quantity for ${p.name}">
+    <button data-act="dec" data-id="${id}" aria-label="Decrease quantity">−</button>
+    <output aria-live="polite">${q}</output>
+    <button data-act="inc" data-id="${id}" aria-label="Increase quantity">+</button>
+   </div></div>
+  <div class="item-right"><strong>${fmt(p.price*q)}</strong><button class="remove" data-act="rm" data-id="${id}">Remove<span class="sr-only"> ${p.name}</span></button></div>
+ </li>`}).join('');
+ const left=FREE_SHIP-t.sub,pct=Math.min(100,t.sub/FREE_SHIP*100);
+ $('#summary').innerHTML=`
+  <div class="ship-note">${left>0?`You're ${fmt(left)} away from free shipping.`:'🎉 You get free shipping!'}</div>
+  <div class="progress" aria-hidden="true"><span style="width:${pct}%"></span></div>
+  <div class="row"><span>Subtotal</span><span>${fmt(t.sub)}</span></div>
+  <div class="row"><span>Shipping</span><span>${t.ship?fmt(t.ship):'Free'}</span></div>
+  <div class="row"><span>Est. tax (8%)</span><span>${fmt(t.tax)}</span></div>
+  <div class="row total"><span>Total</span><span>${fmt(t.total)}</span></div>
+  <button class="btn" data-act="checkout">Checkout</button>
+  <button class="clear" data-act="clear">Clear cart</button>`;
+}
+function onCartClick(e){
+ const b=e.target.closest('[data-act]');if(!b)return;
+ const id=b.dataset.id,act=b.dataset.act;
+ if(act==='inc')setQty(id,cart[id]+1);
+ else if(act==='dec'){setQty(id,cart[id]-1);if(!cart[id])focusFirst()}
+ else if(act==='rm'){const n=byId(id).name;setQty(id,0);toast(`${n} removed`);focusFirst()}
+ else if(act==='clear'){if(confirm('Remove all items from your cart?')){cart={};save();render();focusFirst()}}
+ else if(act==='browse')closeCart();
+ else if(act==='checkout'){const t=totals();cart={};save();render();closeCart();toast(`Thanks! Order of ${fmt(t.total)} placed (demo).`)}
+}
+$('#items').addEventListener('click',onCartClick);
+$('#summary').addEventListener('click',onCartClick);
+
+// Drawer
+const drawer=$('#cart'),overlay=$('#overlay');let lastFocus=null;
+function focusables(){return[...drawer.querySelectorAll('button,a[href],[tabindex]:not([tabindex="-1"])')].filter(el=>!el.closest('[hidden]'))}
+function focusFirst(){const f=focusables();(f[1]||f[0]||drawer).focus()}
+function openCart(){lastFocus=document.activeElement;drawer.classList.add('open');overlay.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.classList.add('locked');$('#cartBtn').setAttribute('aria-expanded','true');setTimeout(()=>$('#closeCart').focus(),50)}
+function closeCart(){drawer.classList.remove('open');overlay.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.classList.remove('locked');$('#cartBtn').setAttribute('aria-expanded','false');if(lastFocus)lastFocus.focus()}
+$('#cartBtn').addEventListener('click',openCart);
+$('#closeCart').addEventListener('click',closeCart);
+overlay.addEventListener('click',closeCart);
+document.addEventListener('keydown',e=>{
+ if(!drawer.classList.contains('open'))return;
+ if(e.key==='Escape')closeCart();
+ if(e.key==='Tab'){const f=focusables();if(!f.length)return;const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+});
+// Sync across tabs
+window.addEventListener('storage',e=>{if(e.key===KEY){try{cart=JSON.parse(e.newValue)||{}}catch(_){cart={}}render()}});
+
+let tt;function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200)}
+
+$('#yr').textContent=new Date().getFullYear();
+renderGrid();render();
+})();
+</script>
+</body>
+</html>
