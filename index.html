@@ -1,213 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fresh Market – Fruit &amp; Vegetables</title>
-<meta name="description" content="Browse fresh fruit and vegetables with characteristics and prices.">
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Green Basket – Fresh Produce Guide</title>
+<meta name='description' content='A small produce catalogue with fruit and vegetables, their characteristics and sample prices.'>
 <style>
-:root{--bg:#f6f8f4;--panel:#fff;--ink:#1f2a1f;--muted:#5d6b5d;--brand:#2e7d32;--brand-2:#66bb6a;--line:#e1e7dd;--accent:#ff8f00;--radius:14px;--shadow:0 4px 18px rgba(30,60,30,.08)}
+:root{--bg:#faf6ee;--panel:#fffdf8;--ink:#1d2a22;--muted:#5d6b62;--brand:#1f3d2b;--brand2:#2f5a3f;--accent:#d9661f;--line:#e4dccb;--radius:14px;--head:60px}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;display:grid;grid-template-columns:270px 1fr;grid-template-rows:auto 1fr auto;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh}
-a{color:var(--brand)}
-.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:.5rem 1rem;z-index:100}
-.skip:focus{left:1rem;top:1rem}
-header{grid-area:header;background:linear-gradient(120deg,#1b5e20,#43a047);color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;box-shadow:var(--shadow);position:sticky;top:0;z-index:20}
-header .logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none}
-header .logo svg{width:40px;height:40px}
-header h1{font-size:1.4rem;margin:0;letter-spacing:.3px}
-header p{margin:0;font-size:.85rem;opacity:.85}
-.menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:10px;padding:.45rem .7rem;font-size:1.1rem;cursor:pointer}
-nav{grid-area:nav;background:var(--panel);border-right:1px solid var(--line);padding:1rem .75rem;overflow-y:auto}
-nav .nav-tools{display:flex;gap:.4rem;margin:0 .25rem .75rem}
-nav .nav-tools button{flex:1;font-size:.75rem;padding:.35rem;border:1px solid var(--line);background:var(--bg);border-radius:8px;cursor:pointer;color:var(--muted)}
-nav .nav-tools button:hover{color:var(--brand);border-color:var(--brand-2)}
-.home-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600;margin-bottom:.5rem}
-.group{margin-bottom:.4rem}
-.group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;padding:.6rem .75rem;font:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.8px;font-size:.8rem;color:var(--muted);cursor:pointer;border-radius:10px}
-.group-toggle:hover{background:var(--bg);color:var(--brand)}
-.group-toggle .chev{transition:transform .25s;width:16px;height:16px}
-.group-toggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
-.group-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .3s ease}
-.group-body.collapsed{grid-template-rows:0fr}
-.group-body>ul{overflow:hidden;list-style:none;margin:0;padding:0}
-.group-body.collapsed>ul{visibility:hidden;transition:visibility 0s .3s}
-.item-link{display:flex;align-items:center;gap:.65rem;padding:.45rem .75rem .45rem 1rem;border-radius:10px;text-decoration:none;color:var(--ink);margin:2px 0}
-.item-link svg,.home-link svg{width:28px;height:28px;flex:none}
-.item-link:hover,.home-link:hover{background:#eef5ea}
-.item-link[aria-current="page"],.home-link[aria-current="page"]{background:#e3f1df;color:var(--brand);font-weight:600;box-shadow:inset 3px 0 0 var(--brand)}
-a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);min-width:0}
-main:focus{outline:none}
-.crumbs{font-size:.85rem;color:var(--muted);margin-bottom:1rem}
-.crumbs a{text-decoration:none}
-.hero{background:var(--panel);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center}
-.hero .big-icon{width:180px;height:180px;background:radial-gradient(circle,#f3f9ef 0%,#e2efdc 100%);border-radius:50%;display:grid;place-items:center}
-.hero .big-icon svg{width:120px;height:120px}
-.hero h2{margin:.1rem 0 .4rem;font-size:2rem}
-.tag{display:inline-block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:.2rem .6rem;border-radius:99px;background:#e3f1df;color:var(--brand)}
-.price{display:inline-flex;align-items:baseline;gap:.35rem;margin-top:.6rem;background:#fff4e0;color:#8a4b00;padding:.5rem .9rem;border-radius:12px;font-weight:700}
-.price strong{font-size:1.6rem}
-.specs{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
-.spec{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem}
-.spec dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700}
-.spec dd{margin:.25rem 0 0;font-size:1.05rem;font-weight:600}
-.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}
-.pager a{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;background:var(--panel);border:1px solid var(--line);padding:.6rem 1rem;border-radius:10px;font-weight:600}
-.pager a:hover{border-color:var(--brand-2)}
-.pager svg{width:24px;height:24px}
-.intro{background:var(--panel);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;margin-bottom:2rem}
-.intro h2{margin-top:0}
-.section-title{margin:1.5rem 0 .75rem;font-size:1.2rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem;text-align:center;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-.card svg{width:72px;height:72px}
-.card h4{margin:.5rem 0 .2rem}
-.card span{color:#8a4b00;font-weight:700;font-size:.9rem}
-footer{grid-area:footer;background:#1b2a1b;color:#cfd8cf;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-size:.85rem}
-footer a{color:#a5d6a7}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;min-height:100vh;display:grid;grid-template-columns:270px minmax(0,1fr);grid-template-rows:var(--head) 1fr auto;grid-template-areas:'head head' 'nav main' 'foot foot'}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif;line-height:1.2;margin:0}
+a{color:var(--brand2)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:var(--ink);padding:8px 14px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+
+/* Header */
+.site-header{grid-area:head;position:sticky;top:0;z-index:30;background:var(--brand);color:#fff;display:flex;align-items:center;gap:12px;padding:0 20px;height:var(--head)}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-family:Georgia,serif;font-size:1.3rem;font-weight:700;letter-spacing:.2px}
+.brand svg{width:34px;height:34px}
+.site-header .tag{margin-left:auto;font-size:.9rem;color:#cfe3d4}
+.menu-btn{display:none;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:10px;width:42px;height:42px;padding:0;cursor:pointer;align-items:center;justify-content:center}
+.menu-btn svg{width:22px;height:22px}
+
+/* Sidebar */
+.sidebar{grid-area:nav;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px 24px;position:sticky;top:var(--head);align-self:start;height:calc(100vh - var(--head));overflow-y:auto}
+.nav-tools{display:flex;gap:8px;margin:0 4px 14px}
+.nav-tools button{flex:1;font:inherit;font-size:.8rem;padding:7px 8px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;cursor:pointer}
+.nav-tools button:hover{border-color:var(--brand2)}
+.home-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;text-decoration:none;color:var(--ink);font-weight:600;margin-bottom:10px}
+.home-link svg{width:22px;height:22px}
+.group{margin-bottom:8px}
+.group-btn{width:100%;display:flex;align-items:center;justify-content:space-between;font:inherit;font-weight:700;font-size:.82rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;padding:10px;border-radius:10px;cursor:pointer;text-align:left}
+.group-btn:hover{background:#f1ebdd;color:var(--ink)}
+.group-btn svg{width:16px;height:16px;transition:transform .2s}
+.group-btn[aria-expanded='true'] svg{transform:rotate(90deg)}
+.group ul{list-style:none;margin:2px 0 0;padding:0}
+.group li a{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink)}
+.group li a svg{width:28px;height:28px;flex:none}
+.group li a:hover,.home-link:hover{background:#f1ebdd}
+.sidebar a[aria-current='page']{background:var(--brand);color:#fff}
 .backdrop{display:none}
+
+/* Main */
+main{grid-area:main;padding:36px clamp(18px,4vw,56px) 56px;min-width:0}
+.wrap{max-width:920px;margin:0 auto}
+.crumbs{font-size:.88rem;color:var(--muted);margin-bottom:18px}
+.crumbs a{color:var(--muted)}
+.lead{font-size:1.1rem;color:var(--muted);max-width:60ch;margin:10px 0 0}
+h1{font-size:clamp(1.9rem,4vw,2.7rem)}
+h1:focus{outline:none}
+.section-title{font-size:1.3rem;margin:38px 0 14px;display:flex;align-items:baseline;gap:10px}
+.section-title span{font-family:system-ui,sans-serif;font-size:.85rem;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-decoration:none;color:var(--ink);transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(31,61,43,.12);border-color:#cdbf9f}
+.card .ico{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;margin-bottom:6px}
+.card .ico svg{width:46px;height:46px}
+.card strong{font-family:Georgia,serif;font-size:1.1rem}
+.card .p{color:var(--accent);font-weight:700;font-size:.95rem}
+
+.hero{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px}
+.hero .ico{width:200px;height:200px;border-radius:24px;display:grid;place-items:center}
+.hero .ico svg{width:150px;height:150px}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:#e6efe2;color:var(--brand);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.price{margin-top:18px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price b{font-family:Georgia,serif;font-size:2.2rem;color:var(--accent)}
+.price span{color:var(--muted)}
+.price small{flex-basis:100%;color:var(--muted);font-size:.8rem}
+.specs{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.specs div{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.specs dt{font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.specs dd{margin:4px 0 0;font-size:1.02rem}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:36px;flex-wrap:wrap}
+.pager a{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid var(--line);background:var(--panel);border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600}
+.pager a:hover{border-color:var(--brand2)}
+.pager svg{width:24px;height:24px}
+
+/* Footer */
+.site-footer{grid-area:foot;background:var(--brand);color:#cfe3d4;padding:22px 24px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.9rem;position:relative;z-index:5}
+.site-footer a{color:#fff}
+
 @media (max-width:820px){
-body{grid-template-columns:1fr;grid-template-areas:"header" "main" "footer"}
-.menu-btn{display:inline-block}
-nav{position:fixed;top:0;left:0;bottom:0;width:280px;z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:var(--shadow);padding-top:1.25rem}
-body.nav-open nav{transform:none}
-body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
-.hero{grid-template-columns:1fr;text-align:center;justify-items:center;padding:1.5rem}
-.hero .big-icon{width:150px;height:150px}
+body{grid-template-columns:minmax(0,1fr);grid-template-areas:'head' 'main' 'foot'}
+.menu-btn{display:inline-flex}
+.site-header .tag{display:none}
+.sidebar{position:fixed;top:var(--head);left:0;bottom:0;width:min(290px,86vw);height:auto;z-index:25;transform:translateX(-100%);visibility:hidden;transition:transform .25s,visibility .25s;box-shadow:8px 0 30px rgba(0,0,0,.18)}
+body.nav-open .sidebar{transform:none;visibility:visible}
+body.nav-open .backdrop{display:block;position:fixed;inset:var(--head) 0 0 0;background:rgba(20,30,24,.45);z-index:20}
+.hero{grid-template-columns:1fr;gap:20px;padding:20px}
+.hero .ico{width:140px;height:140px}
+.hero .ico svg{width:104px;height:104px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header>
-  <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">&#9776;</button>
-  <a class="logo" href="#home">
-    <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" opacity=".18"/><path d="M14 26h36l-4 24H18z" fill="#fff"/><path d="M22 26c0-8 4-14 10-14s10 6 10 14" stroke="#fff" stroke-width="4" fill="none"/><circle cx="26" cy="38" r="3" fill="#43a047"/><circle cx="38" cy="38" r="3" fill="#e53935"/></svg>
-    <div><h1>Fresh Market</h1><p>Fruit &amp; vegetables, straight from the farm</p></div>
-  </a>
-</header>
-<nav id="sidebar" aria-label="Products">
-  <div class="nav-tools">
-    <button type="button" id="expandAll">Expand all</button>
-    <button type="button" id="collapseAll">Collapse all</button>
-  </div>
-  <div id="navContent"></div>
-</nav>
-<div class="backdrop" id="backdrop"></div>
-<main id="main" tabindex="-1"></main>
-<footer>
-  <span>&copy; <span id="year"></span> Fresh Market. All prices are for demonstration only.</span>
-  <span><a href="#home">Home</a> · Made with care &amp; vitamins</span>
-</footer>
-<script>
-const ICONS={
-apple:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-6-5-20-4-22 10-2 13 7 28 14 28 4 0 5-2 8-2s4 2 8 2c7 0 16-15 14-28-2-14-16-15-22-10z" fill="#e53935"/><path d="M32 18c0-6 2-10 5-12" stroke="#5d4037" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 12c4-6 12-6 14-4-3 5-9 7-14 4z" fill="#43a047"/><ellipse cx="21" cy="30" rx="3" ry="6" fill="#fff" opacity=".35"/></svg>',
-pear:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 12c-5 0-7 6-7 11 0 6-11 11-11 21 0 9 8 14 18 14s18-5 18-14c0-10-11-15-11-21 0-5-2-11-7-11z" fill="#c0ca33"/><path d="M32 12c0-4 1-6 3-8" stroke="#5d4037" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M35 8c4-3 9-2 11 0-4 3-8 3-11 0z" fill="#558b2f"/><ellipse cx="23" cy="42" rx="3" ry="6" fill="#fff" opacity=".35"/><circle cx="38" cy="46" r="1" fill="#827717"/><circle cx="30" cy="52" r="1" fill="#827717"/></svg>',
-banana:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 14c2 24 20 40 44 34 3-1 3-5 0-5-19 2-32-10-36-29-1-4-8-4-8 0z" fill="#fdd835" stroke="#f9a825" stroke-width="2"/><path d="M18 18c4 14 14 23 30 25" stroke="#f9a825" stroke-width="1.5" fill="none"/><rect x="12" y="8" width="7" height="7" rx="2" fill="#6d4c41"/><circle cx="57" cy="46" r="2" fill="#6d4c41"/></svg>',
-carrots:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M42 20c5-3 10 2 7 7L18 57c-2 2-5 0-4-3z" fill="#fb8c00"/><path d="M28 34l4 2M24 42l4 2M34 28l3 2M20 49l3 1" stroke="#e65100" stroke-width="2" stroke-linecap="round"/><path d="M46 20c-2-6 0-12 4-14M47 21c2-6 8-9 12-8M48 22c5-1 10 2 12 6" stroke="#43a047" stroke-width="4" fill="none" stroke-linecap="round"/></svg>',
-onions:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c2 6 4 8 10 14 8 8 10 14 10 20 0 10-9 16-20 16S12 52 12 42c0-6 2-12 10-20 6-6 8-8 10-14z" fill="#8e24aa"/><path d="M32 12c-4 12-10 18-10 30 0 8 4 13 10 16M32 12c4 12 10 18 10 30 0 8-4 13-10 16" stroke="#ce93d8" stroke-width="2" fill="none"/><path d="M28 58l-2 4M32 58v5M36 58l2 4" stroke="#bcaaa4" stroke-width="2" stroke-linecap="round"/></svg>',
-garlic:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c1 8 4 10 10 16 8 7 12 13 12 21 0 10-10 15-22 15S10 53 10 43c0-8 4-14 12-21 6-6 9-8 10-16z" fill="#f5f0e6" stroke="#bcaaa4" stroke-width="2"/><path d="M32 14c-3 10-12 16-12 28 0 7 5 13 12 15M32 14c3 10 12 16 12 28 0 7-5 13-12 15M32 14v43" stroke="#d7ccc8" stroke-width="2" fill="none"/><path d="M32 4v4" stroke="#a1887f" stroke-width="3" stroke-linecap="round"/></svg>',
-cabbage:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="24" fill="#7cb342"/><path d="M32 58c-10-8-12-24-4-36M32 58c10-8 12-24 4-36M14 30c8-2 14 2 18 10M50 30c-8-2-14 2-18 10" stroke="#c5e1a5" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="32" cy="30" r="8" fill="#aed581"/></svg>',
-potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 36c-2-12 8-24 22-24 12 0 20 6 20 16 0 14-10 24-24 24-10 0-17-6-18-16z" fill="#a1887f"/><path d="M18 26c4-6 10-9 16-9" stroke="#d7ccc8" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="24" cy="34" r="1.8" fill="#5d4037"/><circle cx="36" cy="26" r="1.8" fill="#5d4037"/><circle cx="40" cy="40" r="1.8" fill="#5d4037"/><circle cx="28" cy="45" r="1.8" fill="#5d4037"/><circle cx="46" cy="30" r="1.5" fill="#5d4037"/></svg>'
-};
-const HOME_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#2e7d32"/></svg>';
-const CHEV='<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+<a class='skip' href='#main'>Skip to content</a>
 
-const GROUPS=[
+<header class='site-header'>
+<button class='menu-btn' id='menuBtn' type='button' aria-label='Toggle navigation' aria-controls='sidebar' aria-expanded='false'>
+<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' aria-hidden='true'><path d='M4 7h16M4 12h16M4 17h16'/></svg>
+</button>
+<a class='brand' href='#/'>
+<svg viewBox='0 0 64 64' aria-hidden='true'><path d='M10 28h44l-5 24a5 5 0 0 1-5 4H20a5 5 0 0 1-5-4z' fill='#e9b872'/><path d='M14 28c0-12 8-20 18-20s18 8 18 20' fill='none' stroke='#e9b872' stroke-width='4' stroke-linecap='round'/><circle cx='25' cy='25' r='7' fill='#e5484d'/><circle cx='39' cy='24' r='8' fill='#8fce6a'/></svg>
+Green Basket
+</a>
+<span class='tag'>Fresh produce guide</span>
+</header>
+
+<nav class='sidebar' id='sidebar' aria-label='Produce'>
+<div id='navInner'></div>
+<noscript><p>This catalogue needs JavaScript to show its pages.</p></noscript>
+</nav>
+<div class='backdrop' id='backdrop'></div>
+
+<main id='main'><div class='wrap' id='view'></div></main>
+
+<footer class='site-footer'>
+<span>&copy; Green Basket &middot; A demo produce catalogue</span>
+<span>All prices are dummy values for illustration only.</span>
+</footer>
+
+<script>
+(function(){
+var ICONS={
+apple:`<path d='M32 20c-6-5-20-3-20 13 0 12 8 23 14 23 3 0 4-1.5 6-1.5s3 1.5 6 1.5c6 0 14-11 14-23 0-16-14-18-20-13z' fill='#e5484d'/><path d='M32 20c0-5 1-9 4-12' stroke='#6b4226' stroke-width='3' fill='none' stroke-linecap='round'/><path d='M36 13c4-6 10-6 14-5-1 5-6 9-14 5z' fill='#4caf50'/><path d='M19 30c1-4 4-6 7-6' stroke='#fff' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='.55'/>`,
+pear:`<path d='M32 14c-6 0-8 6-9 12-1 5-9 9-9 18 0 9 8 14 18 14s18-5 18-14c0-9-8-13-9-18-1-6-3-12-9-12z' fill='#b5cc3a'/><path d='M32 14c0-3 1-6 3-8' stroke='#6b4226' stroke-width='3' fill='none' stroke-linecap='round'/><path d='M35 10c4-4 9-4 12-2-2 4-7 6-12 2z' fill='#4caf50'/><path d='M21 42c0-4 2-7 5-9' stroke='#fff' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='.5'/>`,
+banana:`<path d='M10 40c10 8 31 6 41-16l5 2c-4 23-27 35-45 23-3-2-4-6-1-9z' fill='#f7c948'/><path d='M51 24l-1-8 6 1v9z' fill='#7a5a2b'/><path d='M14 46c12 6 28 2 37-12' stroke='#d9a520' stroke-width='2' fill='none' stroke-linecap='round'/><circle cx='11' cy='43' r='2.5' fill='#7a5a2b'/>`,
+carrots:`<path d='M40 22c-2-8 2-14 6-16 1 5 0 9-2 13 4-4 9-5 14-3-2 5-8 8-16 8z' fill='#4caf50'/><path d='M41 20c5 4 5 10 1 14L14 56c-3 2-6-1-4-4l22-28c3-4 7-5 9-4z' fill='#f58a1f'/><path d='M30 32l5 4M24 40l5 4M19 47l4 3' stroke='#c96a0c' stroke-width='2' stroke-linecap='round'/>`,
+onions:`<path d='M32 16c-1-4 0-8 3-11' stroke='#4caf50' stroke-width='3.5' fill='none' stroke-linecap='round'/><path d='M32 14c4 8 20 12 20 26 0 10-9 16-20 16s-20-6-20-16c0-14 16-18 20-26z' fill='#b565a7'/><path d='M32 22c-6 8-8 20-4 33M32 22c6 8 8 20 4 33' stroke='#fff' stroke-width='2' fill='none' opacity='.4'/><path d='M28 56l-2 4M32 56v5M36 56l2 4' stroke='#8a6f55' stroke-width='2' stroke-linecap='round'/>`,
+garlic:`<path d='M32 6c0 12-20 17-20 34 0 10 8 16 20 16s20-6 20-16c0-17-20-22-20-34z' fill='#f4eee2' stroke='#b9ab92' stroke-width='2' stroke-linejoin='round'/><path d='M32 18c-6 10-8 24-4 37M32 18c6 10 8 24 4 37' stroke='#b9ab92' stroke-width='2' fill='none'/><path d='M28 56l-2 4M32 56v5M36 56l2 4' stroke='#8a6f55' stroke-width='2' stroke-linecap='round'/>`,
+cabbage:`<circle cx='32' cy='33' r='25' fill='#8fce6a'/><path d='M32 9c-11 10-11 38 0 49M32 9c11 10 11 38 0 49M9 28c9 2 17 10 23 28M55 28c-9 2-17 10-23 28' stroke='#4e9a3a' stroke-width='2.5' fill='none' stroke-linecap='round'/><circle cx='32' cy='33' r='25' fill='none' stroke='#4e9a3a' stroke-width='2.5'/>`,
+potatoes:`<ellipse cx='32' cy='34' rx='25' ry='17' transform='rotate(-15 32 34)' fill='#c99a5b'/><circle cx='22' cy='33' r='2.2' fill='#8a6233'/><circle cx='35' cy='27' r='2' fill='#8a6233'/><circle cx='42' cy='37' r='2.2' fill='#8a6233'/><circle cx='29' cy='42' r='1.8' fill='#8a6233'/><path d='M14 30c3-6 9-9 15-10' stroke='#fff' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='.35'/>`
+};
+function icon(id){return `<svg viewBox='0 0 64 64' aria-hidden='true' focusable='false'>${ICONS[id]}</svg>`;}
+
+var GROUPS=[
 {id:'fruit',name:'Fruit',items:[
-{id:'apple',name:'Apple',latin:'Malus domestica',price:2.49,unit:'kg',desc:'Crisp and juicy, apples are one of the most widely grown fruits. Perfect for snacking, baking pies or pressing into fresh juice.',specs:{Origin:'Poland',Variety:'Gala',Color:'Red / yellow',Calories:'52 kcal / 100 g',Season:'August – November',Taste:'Sweet, slightly tart','Key vitamins':'C, K, fibre',Storage:'Fridge, up to 4 weeks'}},
-{id:'pear',name:'Pear',latin:'Pyrus communis',price:2.99,unit:'kg',desc:'Soft, buttery and fragrant when ripe. Pears are delicious fresh, poached in wine or paired with cheese.',specs:{Origin:'Belgium',Variety:'Conference',Color:'Green / russet',Calories:'57 kcal / 100 g',Season:'September – January',Taste:'Sweet, juicy','Key vitamins':'C, K, copper',Storage:'Room temp to ripen, then fridge'}},
-{id:'banana',name:'Banana',latin:'Musa acuminata',price:1.79,unit:'kg',desc:'An energy-packed tropical favourite with a natural wrapper. Great in smoothies, breakfast bowls and banana bread.',specs:{Origin:'Ecuador',Variety:'Cavendish',Color:'Yellow',Calories:'89 kcal / 100 g',Season:'All year',Taste:'Sweet, creamy','Key vitamins':'B6, C, potassium',Storage:'Room temperature, 3–5 days'}}
+{id:'apple',name:'Apple',tint:'#fde4e4',price:'$2.49',unit:'per lb',tag:`Crisp, juicy and endlessly snackable.`,specs:{Variety:'Gala',Origin:'Washington, USA',Season:'September – November',Taste:'Sweet with a mild tartness',Calories:'52 kcal per 100 g',Storage:'Refrigerate in the crisper drawer','Shelf life':'4 – 6 weeks chilled','Rich in':'Fibre, vitamin C'}},
+{id:'pear',name:'Pear',tint:'#eef3cf',price:'$2.99',unit:'per lb',tag:`Buttery flesh with a honeyed finish.`,specs:{Variety:'Bartlett',Origin:'Oregon, USA',Season:'August – October',Taste:'Sweet, soft and floral',Calories:'57 kcal per 100 g',Storage:'Ripen at room temperature, then chill','Shelf life':'5 – 7 days once ripe','Rich in':'Fibre, copper'}},
+{id:'banana',name:'Banana',tint:'#fdf1c7',price:'$0.69',unit:'per lb',tag:`The original grab-and-go energy bar.`,specs:{Variety:'Cavendish',Origin:'Ecuador',Season:'All year round',Taste:'Creamy and sweet',Calories:'89 kcal per 100 g',Storage:'Room temperature, away from other fruit','Shelf life':'3 – 5 days','Rich in':'Potassium, vitamin B6'}}
 ]},
 {id:'vegetables',name:'Vegetables',items:[
-{id:'carrots',name:'Carrots',latin:'Daucus carota',price:1.19,unit:'kg',desc:'Sweet, crunchy roots rich in beta-carotene. Enjoy raw, roasted, steamed or blended into soups.',specs:{Origin:'Netherlands',Variety:'Nantes',Color:'Orange',Calories:'41 kcal / 100 g',Season:'June – March',Taste:'Sweet, earthy','Key vitamins':'A, K, B6',Storage:'Fridge, up to 3 weeks'}},
-{id:'onions',name:'Onions',latin:'Allium cepa',price:0.99,unit:'kg',desc:'The foundation of countless dishes. Red onions add a mild, sweet bite to salads and turn jammy when caramelised.',specs:{Origin:'Spain',Variety:'Red Baron',Color:'Purple / red',Calories:'40 kcal / 100 g',Season:'July – April',Taste:'Pungent raw, sweet cooked','Key vitamins':'C, B6, folate',Storage:'Cool, dry and dark place'}},
-{id:'garlic',name:'Garlic',latin:'Allium sativum',price:6.90,unit:'kg',desc:'Aromatic bulbs that bring depth and warmth to sauces, marinades and roasts. A little goes a long way.',specs:{Origin:'France',Variety:'Lautrec White',Color:'White',Calories:'149 kcal / 100 g',Season:'July – December',Taste:'Strong, spicy','Key vitamins':'B6, C, manganese',Storage:'Dry, ventilated, up to 6 months'}},
-{id:'cabbage',name:'Cabbage',latin:'Brassica oleracea',price:1.49,unit:'piece',desc:'A hearty leafy vegetable, ideal for coleslaw, stir-fries, soups and fermenting into sauerkraut.',specs:{Origin:'Germany',Variety:'White cabbage',Color:'Pale green',Calories:'25 kcal / 100 g',Season:'September – March',Taste:'Mild, peppery','Key vitamins':'C, K, folate','Average weight':'1.2 kg'}},
-{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',price:0.89,unit:'kg',desc:'Versatile and filling staple. Boil, mash, bake, roast or fry – there is a potato dish for every occasion.',specs:{Origin:'Ireland',Variety:'Maris Piper',Color:'Golden brown',Calories:'77 kcal / 100 g',Season:'All year',Taste:'Mild, floury','Key vitamins':'C, B6, potassium',Storage:'Cool, dark place, not the fridge'}}
+{id:'carrots',name:'Carrots',tint:'#fde6cf',price:'$1.29',unit:'per lb',tag:`Sweet crunch, raw or roasted.`,specs:{Variety:'Nantes',Origin:'California, USA',Season:'June – November',Taste:'Earthy and sweet',Calories:'41 kcal per 100 g',Storage:'Refrigerate, tops removed','Shelf life':'3 – 4 weeks','Rich in':'Beta-carotene, vitamin K'}},
+{id:'onions',name:'Onions',tint:'#f3e1ef',price:'$1.09',unit:'per lb',tag:`The base of nearly every good meal.`,specs:{Variety:'Red onion',Origin:'Idaho, USA',Season:'August – October',Taste:'Sharp raw, sweet when cooked',Calories:'40 kcal per 100 g',Storage:'Cool, dark and well ventilated','Shelf life':'1 – 2 months','Rich in':'Vitamin C, antioxidants'}},
+{id:'garlic',name:'Garlic',tint:'#f1ece2',price:'$0.79',unit:'per bulb',tag:`Small bulb, big personality.`,specs:{Variety:'Softneck',Origin:'Gilroy, California',Season:'July – September',Taste:'Pungent, mellow when roasted',Calories:'149 kcal per 100 g',Storage:'Dry, dark place at room temperature','Shelf life':'3 – 5 months (whole bulb)','Rich in':'Manganese, vitamin B6'}},
+{id:'cabbage',name:'Cabbage',tint:'#e2f3d8',price:'$0.89',unit:'per lb',tag:`Crunchy leaves for slaws, soups and ferments.`,specs:{Variety:'Green cabbage',Origin:'New York, USA',Season:'October – February',Taste:'Mild and peppery',Calories:'25 kcal per 100 g',Storage:'Refrigerate whole and unwashed','Shelf life':'1 – 2 months','Rich in':'Vitamin K, vitamin C'}},
+{id:'potatoes',name:'Potatoes',tint:'#f3e6d3',price:'$0.99',unit:'per lb',tag:`Comfort food in its rawest form.`,specs:{Variety:'Yukon Gold',Origin:'Maine, USA',Season:'September – March',Taste:'Buttery and slightly nutty',Calories:'77 kcal per 100 g',Storage:'Cool, dark place – not the fridge','Shelf life':'2 – 3 months','Rich in':'Potassium, vitamin C'}}
 ]}
 ];
-const ALL=GROUPS.flatMap(g=>g.items.map(i=>({...i,group:g})));
-const fmt=n=>'€'+n.toFixed(2);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-/* ---------- Navigation ---------- */
-const STORE='fm-groups';
-let groupState={};
-try{groupState=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){}
-function buildNav(){
-  let html='<a class="home-link" href="#home" data-id="home">'+HOME_ICON+'Overview</a>';
-  GROUPS.forEach(g=>{
-    const open=groupState[g.id]!==false;
-    html+='<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="grp-'+g.id+'" data-group="'+g.id+'"><span>'+esc(g.name)+' ('+g.items.length+')</span>'+CHEV+'</button>'+
-    '<div class="group-body'+(open?'':' collapsed')+'" id="grp-'+g.id+'"><ul>'+
-    g.items.map(i=>'<li><a class="item-link" href="#'+i.id+'" data-id="'+i.id+'"'+(open?'':' tabindex="-1"')+'>'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>').join('')+
-    '</ul></div></div>';
-  });
-  document.getElementById('navContent').innerHTML=html;
-}
+var ALL=[];
+GROUPS.forEach(function(g){g.items.forEach(function(it){it.group=g;ALL.push(it);});});
+
+var nav=document.getElementById('navInner'),view=document.getElementById('view'),menuBtn=document.getElementById('menuBtn'),backdrop=document.getElementById('backdrop');
+var CHEV=`<svg viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M6 3l5 5-5 5'/></svg>`;
+
+var state={};
+try{state=JSON.parse(localStorage.getItem('gb-groups'))||{};}catch(e){state={};}
+function save(){try{localStorage.setItem('gb-groups',JSON.stringify(state));}catch(e){}}
+
+/* Build sidebar */
+nav.innerHTML=`<a class='home-link' href='#/' data-route=''><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M3 11l9-8 9 8M5 10v10h14V10'/></svg>All produce</a>
+<div class='nav-tools'><button type='button' id='expAll'>Expand all</button><button type='button' id='colAll'>Collapse all</button></div>`+
+GROUPS.map(function(g){
+return `<div class='group'><button type='button' class='group-btn' data-group='${g.id}' aria-controls='list-${g.id}' aria-expanded='true'><span>${g.name}</span>${CHEV}</button><ul id='list-${g.id}'>`+
+g.items.map(function(it){return `<li><a href='#/${it.id}' data-route='${it.id}'>${icon(it.id)}<span>${it.name}</span></a></li>`;}).join('')+`</ul></div>`;
+}).join('');
+
 function setGroup(id,open){
-  const btn=document.querySelector('[data-group="'+id+'"]');
-  const body=document.getElementById('grp-'+id);
-  btn.setAttribute('aria-expanded',open);
-  body.classList.toggle('collapsed',!open);
-  body.querySelectorAll('a').forEach(a=>open?a.removeAttribute('tabindex'):a.setAttribute('tabindex','-1'));
-  groupState[id]=open;
-  try{localStorage.setItem(STORE,JSON.stringify(groupState))}catch(e){}
+var btn=nav.querySelector(`[data-group='${id}']`);
+btn.setAttribute('aria-expanded',open?'true':'false');
+document.getElementById('list-'+id).hidden=!open;
+state[id]=open;
 }
-document.getElementById('navContent').addEventListener('click',e=>{
-  const btn=e.target.closest('.group-toggle');
-  if(btn){setGroup(btn.dataset.group,btn.getAttribute('aria-expanded')!=='true');return}
-  if(e.target.closest('a'))closeNav();
+GROUPS.forEach(function(g){setGroup(g.id,state[g.id]!==false);});
+nav.addEventListener('click',function(e){
+var b=e.target.closest('.group-btn');
+if(b){setGroup(b.dataset.group,b.getAttribute('aria-expanded')!=='true');save();return;}
+if(e.target.closest('a'))closeNav();
 });
-document.getElementById('expandAll').onclick=()=>GROUPS.forEach(g=>setGroup(g.id,true));
-document.getElementById('collapseAll').onclick=()=>GROUPS.forEach(g=>setGroup(g.id,false));
+document.getElementById('expAll').addEventListener('click',function(){GROUPS.forEach(function(g){setGroup(g.id,true);});save();});
+document.getElementById('colAll').addEventListener('click',function(){GROUPS.forEach(function(g){setGroup(g.id,false);});save();});
 
-/* mobile menu */
-const menuBtn=document.getElementById('menuBtn');
-function closeNav(){document.body.classList.remove('nav-open');menuBtn.setAttribute('aria-expanded','false')}
-menuBtn.onclick=()=>{const o=document.body.classList.toggle('nav-open');menuBtn.setAttribute('aria-expanded',o)};
-document.getElementById('backdrop').onclick=closeNav;
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav()});
+/* Mobile nav */
+function closeNav(){document.body.classList.remove('nav-open');menuBtn.setAttribute('aria-expanded','false');}
+menuBtn.addEventListener('click',function(){var o=document.body.classList.toggle('nav-open');menuBtn.setAttribute('aria-expanded',o?'true':'false');});
+backdrop.addEventListener('click',closeNav);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('nav-open')){closeNav();menuBtn.focus();}});
 
-/* ---------- Pages ---------- */
-const main=document.getElementById('main');
-function homePage(){
-  document.title='Fresh Market – Fruit & Vegetables';
-  return '<section class="intro"><h2>Welcome to Fresh Market</h2><p>Explore our selection of seasonal fruit and vegetables. Pick a product from the menu on the left or from the cards below to see its characteristics and current price.</p></section>'+
-  GROUPS.map(g=>'<h3 class="section-title">'+esc(g.name)+'</h3><div class="cards">'+
-  g.items.map(i=>'<a class="card" href="#'+i.id+'">'+ICONS[i.id]+'<h4>'+esc(i.name)+'</h4><span>'+fmt(i.price)+' / '+i.unit+'</span></a>').join('')+'</div>').join('');
+/* Views */
+function homeView(){
+return `<h1 tabindex='-1'>Fresh from the basket</h1><p class='lead'>Browse our small selection of fruit and vegetables. Pick an item to see its characteristics and a sample price.</p>`+
+GROUPS.map(function(g){
+return `<h2 class='section-title'>${g.name} <span>${g.items.length} items</span></h2><div class='grid'>`+
+g.items.map(function(it){return `<a class='card' href='#/${it.id}'><span class='ico' style='background:${it.tint}'>${icon(it.id)}</span><strong>${it.name}</strong><span class='p'>${it.price} <span style='color:var(--muted);font-weight:400'>${it.unit}</span></span></a>`;}).join('')+`</div>`;
+}).join('');
 }
-function itemPage(item){
-  document.title=item.name+' – Fresh Market';
-  const idx=ALL.indexOf(item),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
-  return '<div class="crumbs"><a href="#home">Home</a> › '+esc(item.group.name)+' › <span aria-current="page">'+esc(item.name)+'</span></div>'+
-  '<article><section class="hero"><div class="big-icon">'+ICONS[item.id]+'</div><div>'+
-  '<span class="tag">'+esc(item.group.name)+'</span><h2>'+esc(item.name)+'</h2><p><em>'+esc(item.latin)+'</em></p><p>'+esc(item.desc)+'</p>'+
-  '<div class="price" aria-label="Price"><strong>'+fmt(item.price)+'</strong> per '+item.unit+'</div></div></section>'+
-  '<h3 class="section-title">Characteristics</h3><dl class="specs">'+
-  Object.entries(item.specs).map(([k,v])=>'<div class="spec"><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+
-  '<div class="spec"><dt>Price</dt><dd>'+fmt(item.price)+' / '+item.unit+'</dd></div></dl></article>'+
-  '<div class="pager"><a href="#'+prev.id+'">← '+ICONS[prev.id]+esc(prev.name)+'</a><a href="#'+next.id+'">'+ICONS[next.id]+esc(next.name)+' →</a></div>';
+function itemView(it){
+var i=ALL.indexOf(it),prev=ALL[(i-1+ALL.length)%ALL.length],next=ALL[(i+1)%ALL.length];
+var specs=Object.keys(it.specs).map(function(k){return `<div><dt>${k}</dt><dd>${it.specs[k]}</dd></div>`;}).join('');
+return `<p class='crumbs'><a href='#/'>All produce</a> &rsaquo; ${it.group.name} &rsaquo; ${it.name}</p>
+<section class='hero'><div class='ico' style='background:${it.tint}'>${icon(it.id)}</div><div><span class='badge'>${it.group.name}</span><h1 tabindex='-1'>${it.name}</h1><p class='lead'>${it.tag}</p><p class='price'><b>${it.price}</b><span>${it.unit}</span><small>Dummy price for demonstration only.</small></p></div></section>
+<h2 class='section-title'>Characteristics</h2><dl class='specs'>${specs}</dl>
+<nav class='pager' aria-label='More produce'><a href='#/${prev.id}'>&larr; ${icon(prev.id)} ${prev.name}</a><a href='#/${next.id}'>${next.name} ${icon(next.id)} &rarr;</a></nav>`;
 }
-function route(first){
-  const id=(location.hash||'#home').slice(1);
-  const item=ALL.find(i=>i.id===id);
-  main.innerHTML=item?itemPage(item):homePage();
-  const cur=item?id:'home';
-  document.querySelectorAll('#navContent a').forEach(a=>{a.dataset.id===cur?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
-  if(item&&groupState[item.group.id]===false)setGroup(item.group.id,true);
-  if(!first){window.scrollTo(0,0);main.focus({preventScroll:true})}
+function notFound(){return `<h1 tabindex='-1'>Not in the basket</h1><p class='lead'>We could not find that item. <a href='#/'>Back to all produce</a>.</p>`;}
+
+var first=true;
+function render(){
+var route=location.hash.replace(/^#\/?/,'').toLowerCase();
+var it=ALL.filter(function(x){return x.id===route;})[0];
+view.innerHTML=route===''?homeView():(it?itemView(it):notFound());
+document.title=(it?it.name+' – ':'')+'Green Basket – Fresh Produce Guide';
+nav.querySelectorAll('a[data-route]').forEach(function(a){
+if(a.dataset.route===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+});
+if(it&&it.group){setGroup(it.group.id,true);save();}
+if(!first){window.scrollTo(0,0);var h=view.querySelector('h1');if(h)h.focus({preventScroll:true});}
+first=false;
 }
-buildNav();
-window.addEventListener('hashchange',()=>route(false));
-route(true);
-document.getElementById('year').textContent=new Date().getFullYear();
+window.addEventListener('hashchange',render);
+render();
+})();
 </script>
 </body>
 </html>
