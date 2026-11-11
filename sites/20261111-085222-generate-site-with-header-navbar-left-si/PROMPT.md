@@ -43,3 +43,7 @@ Vegetables
 Also, for each fruit create icon (not for Groups) and create linked page with icon and some characteristics.
 
 Enable Expand/Collapse of the groups
+
+# Refinement
+
+Set dummy price for each item
