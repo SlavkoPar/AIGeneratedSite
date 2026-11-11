@@ -4,68 +4,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fresh Produce Guide</title>
-<meta name="description" content="A small guide to fruits and vegetables with characteristics.">
+<meta name="description" content="A small guide to fruit and vegetables with icons and characteristics.">
 <style>
-:root{--bg:#f6f8f4;--surface:#fff;--text:#1f2a1f;--muted:#5d6b5d;--brand:#2e7d32;--brand-2:#66bb6a;--border:#dfe7dc;--active:#e8f5e9;--radius:12px;--sidebar:260px;--shadow:0 2px 10px rgba(30,60,30,.08)}
+:root{--bg:#f6f8f4;--panel:#fff;--text:#1f2a1f;--muted:#5d6b5d;--accent:#2e7d32;--accent-soft:#e6f2e6;--border:#dfe7dc;--header:#1b5e20;--radius:12px;--sidebar:260px}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh;line-height:1.55}
-a{color:var(--brand)}
-.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:.5rem 1rem;z-index:100}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh}
+a{color:var(--accent)}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem 1rem;z-index:100}
 .skip:focus{left:1rem;top:1rem}
-header.site-header{grid-area:header;background:linear-gradient(120deg,#1b5e20,#43a047);color:#fff;display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;box-shadow:var(--shadow);position:sticky;top:0;z-index:20}
-.logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;font-weight:700;font-size:1.3rem}
-.logo svg{width:36px;height:36px}
-.tagline{margin-left:auto;opacity:.9;font-size:.95rem}
-.menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;padding:.45rem .7rem;font-size:1rem;cursor:pointer}
-nav.sidebar{grid-area:nav;background:var(--surface);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
-.nav-tools{display:flex;gap:.4rem;margin:0 .25rem 1rem}
-.nav-tools button{flex:1;font:inherit;font-size:.8rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
-.nav-tools button:hover{color:var(--brand);border-color:var(--brand-2)}
-.home-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border-radius:8px;text-decoration:none;color:var(--text);font-weight:600;margin-bottom:.5rem}
-.group{margin-bottom:.5rem}
-.group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;font:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.8rem;color:var(--muted);padding:.6rem .75rem;border-radius:8px;cursor:pointer}
-.group-toggle:hover{background:var(--bg);color:var(--brand)}
-.chev{transition:transform .2s;width:16px;height:16px}
+header{grid-area:header;background:linear-gradient(120deg,var(--header),#388e3c);color:#fff;display:flex;align-items:center;gap:1rem;padding:.9rem 1.5rem;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header .logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;font-weight:700;font-size:1.25rem}
+header .logo svg{width:34px;height:34px}
+header p{margin:0 0 0 auto;opacity:.85;font-size:.95rem}
+.menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:.4rem .7rem;font-size:1rem;cursor:pointer}
+nav{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
+.nav-tools{display:flex;gap:.4rem;margin:0 .25rem .75rem}
+.nav-tools button{flex:1;font-size:.78rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
+.nav-tools button:hover{color:var(--accent);border-color:var(--accent)}
+.home-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-radius:8px;text-decoration:none;color:var(--text);font-weight:600;margin-bottom:.5rem}
+.group{margin-bottom:.4rem}
+.group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;padding:.6rem .7rem;font:inherit;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;cursor:pointer;border-radius:8px}
+.group-toggle:hover{background:var(--accent-soft)}
+.group-toggle .count{font-weight:500;color:var(--muted);margin-left:.4rem}
+.chev{width:16px;height:16px;transition:transform .25s}
 .group-toggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
-.group ul{list-style:none;margin:0;padding:0 0 0 .25rem;overflow:hidden}
+.group ul{list-style:none;margin:0;padding:0 0 0 .3rem;overflow:hidden;transition:max-height .3s ease}
 .group ul[hidden]{display:none}
-.nav-item{display:flex;align-items:center;gap:.6rem;padding:.45rem .75rem;border-radius:8px;text-decoration:none;color:var(--text)}
-.nav-item svg{width:24px;height:24px;flex:none}
-.nav-item:hover,.home-link:hover{background:var(--bg)}
-.nav-item[aria-current="page"],.home-link[aria-current="page"]{background:var(--active);color:var(--brand);font-weight:600}
-a:focus-visible,button:focus-visible{outline:3px solid #ffb300;outline-offset:2px}
+.nav-link,.home-link{display:flex;align-items:center;gap:.65rem;padding:.45rem .7rem;border-radius:8px;text-decoration:none;color:var(--text)}
+.nav-link svg,.home-link svg{width:26px;height:26px;flex:none}
+.nav-link:hover,.home-link:hover{background:var(--accent-soft)}
+.nav-link[aria-current="page"],.home-link[aria-current="page"]{background:var(--accent);color:#fff}
+:focus-visible{outline:3px solid #ffb300;outline-offset:2px}
 main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);max-width:1000px;width:100%}
-main h1{margin-top:0;outline:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;padding:0;list-style:none}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;text-align:center;text-decoration:none;color:var(--text);display:block;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(30,60,30,.14)}
+main h1{margin-top:0;font-size:clamp(1.6rem,3vw,2.3rem)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1rem;text-align:center;text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
 .card svg{width:64px;height:64px}
-.card span{display:block;margin-top:.5rem;font-weight:600}
-.detail-hero{display:flex;gap:1.5rem;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
-.detail-hero .icon{width:120px;height:120px;flex:none;background:var(--bg);border-radius:50%;display:grid;place-items:center}
-.detail-hero .icon svg{width:88px;height:88px}
-.badge{display:inline-block;background:var(--active);color:var(--brand);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px}
-.detail-hero h1{margin:.3rem 0}
-.detail-hero p{margin:0;color:var(--muted)}
-.specs{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.specs th,.specs td{padding:.75rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
-.specs th{width:40%;background:#fafcf9;font-weight:600;color:var(--muted)}
-.specs tr:last-child th,.specs tr:last-child td{border-bottom:0}
+.card span{display:block;font-weight:600;margin-top:.4rem}
+.card small{color:var(--muted)}
+h2.section{margin:2rem 0 1rem;font-size:1.2rem;color:var(--accent)}
+.hero{display:flex;gap:1.5rem;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+.hero .big{width:130px;height:130px;flex:none;background:var(--accent-soft);border-radius:50%;display:grid;place-items:center}
+.hero .big svg{width:96px;height:96px}
+.hero h1{margin:0 0 .3rem}
+.tag{display:inline-block;background:var(--accent-soft);color:var(--accent);padding:.15rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600}
+.hero p{margin:.5rem 0 0;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+th{width:38%;color:var(--muted);font-weight:600;background:#fafcf9}
+tr:last-child th,tr:last-child td{border-bottom:0}
 .fact{margin-top:1.5rem;background:#fff8e1;border-left:4px solid #ffb300;padding:1rem 1.2rem;border-radius:8px}
-.pager{display:flex;justify-content:space-between;margin-top:1.5rem;gap:1rem}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:1.5rem}
 .pager a{text-decoration:none;font-weight:600}
-footer.site-footer{grid-area:footer;background:#1b2e1c;color:#cfd8cf;text-align:center;padding:1.2rem;font-size:.9rem}
+footer{grid-area:footer;background:#263238;color:#cfd8dc;padding:1.2rem 1.5rem;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;font-size:.9rem}
 footer a{color:#a5d6a7}
 .backdrop{display:none}
 @media (max-width:800px){
 body{grid-template-columns:1fr;grid-template-areas:"header" "main" "footer"}
 .menu-btn{display:inline-block}
-.tagline{display:none}
-nav.sidebar{position:fixed;top:0;left:0;bottom:0;width:min(80vw,300px);z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:var(--shadow)}
-body.nav-open nav.sidebar{transform:none}
+header p{display:none}
+nav{position:fixed;top:0;left:0;bottom:0;width:min(80vw,var(--sidebar));z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:4px 0 20px rgba(0,0,0,.2)}
+body.nav-open nav{transform:none}
 body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
-.detail-hero{flex-direction:column;text-align:center}
+.hero{flex-direction:column;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -73,125 +76,105 @@ body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <button class="menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">&#9776;</button>
-  <a class="logo" href="#home">
-    <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" opacity=".2"/><path d="M32 50C18 44 16 26 26 16c4 8 12 12 20 12-2 12-8 18-14 22z" fill="#c8e6c9"/><path d="M32 50c0-12 2-20 10-28" stroke="#1b5e20" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-    Fresh Produce Guide
-  </a>
-  <span class="tagline">Fruits &amp; vegetables at a glance</span>
+<header>
+<button class="menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">&#9776;</button>
+<a class="logo" href="#/"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" opacity=".18"/><path d="M32 50C18 44 14 28 22 16c8 6 12 18 10 34zM32 50c14-6 18-22 10-34-8 6-12 18-10 34z" fill="#a5d6a7"/></svg>Fresh Produce Guide</a>
+<p>Fruit &amp; vegetables at a glance</p>
 </header>
-
-<nav class="sidebar" id="sidebar" aria-label="Produce navigation">
-  <div class="nav-tools">
-    <button type="button" id="expandAll">Expand all</button>
-    <button type="button" id="collapseAll">Collapse all</button>
-  </div>
-  <a class="home-link" href="#home" data-id="home">&#127968; Home</a>
-  <div id="navGroups"></div>
-</nav>
 <div class="backdrop" id="backdrop"></div>
-
+<nav id="sidebar" aria-label="Produce navigation">
+<div class="nav-tools"><button type="button" id="expandAll">Expand all</button><button type="button" id="collapseAll">Collapse all</button></div>
+<div id="navGroups"></div>
+</nav>
 <main id="main" tabindex="-1"></main>
-
-<footer class="site-footer">
-  <p>&copy; <span id="year"></span> Fresh Produce Guide &middot; Nutrition values are approximate, per 100&nbsp;g raw.</p>
+<footer>
+<span>&copy; <span id="year"></span> Fresh Produce Guide</span>
+<span>Nutrition values are approximate, per 100&nbsp;g raw.</span>
+<a href="#/">Back to home</a>
 </footer>
-
 <script>
-(function(){
-var ICONS={
-apple:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-6-4-18-3-20 9-2 12 6 27 14 28 3 0 4-1 6-1s3 1 6 1c8-1 16-16 14-28-2-12-14-13-20-9z" fill="#e53935"/><path d="M20 26c-2 3-2 7-1 10" stroke="#ff8a80" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M32 18c0-5 2-9 5-11" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M35 13c4-6 11-6 13-4-3 5-9 6-13 4z" fill="#43a047"/></svg>',
-pear:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 14c-5 0-7 5-7 10 0 6-11 11-11 21 0 9 8 13 18 13s18-4 18-13c0-10-11-15-11-21 0-5-2-10-7-10z" fill="#9ccc65"/><path d="M22 42c0 4 2 7 5 9" stroke="#dcedc8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M32 14c0-4 1-7 3-9" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 10c3-5 9-5 11-3-3 4-7 5-11 3z" fill="#43a047"/></svg>',
-banana:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 18c3 24 22 38 44 32 4-1 4-5 0-5-18 2-31-10-37-28-1-4-7-3-7 1z" fill="#fdd835"/><path d="M14 22c5 14 16 24 32 25" stroke="#f9a825" stroke-width="2" fill="none"/><path d="M9 15l3-5 5 3-2 4z" fill="#6d4c41"/><circle cx="56" cy="47.5" r="2" fill="#5d4037"/></svg>',
-carrots:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M44 20c4 4 4 8 0 12L18 56c-3 3-7-1-4-4L36 22c3-4 5-5 8-2z" fill="#fb8c00"/><path d="M30 32l5 4M24 40l4 3M20 47l3 2" stroke="#e65100" stroke-width="2" stroke-linecap="round"/><path d="M42 21c0-8 4-14 10-16-2 6-4 11-10 16zM44 23c6-4 12-4 16-2-5 4-10 4-16 2zM43 22c2-6 2-12-1-16" fill="#43a047" stroke="#43a047" stroke-width="2" stroke-linejoin="round"/></svg>',
-onions:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10c2 8 18 14 18 30 0 10-8 16-18 16S14 50 14 40c0-16 16-22 18-30z" fill="#ab47bc"/><path d="M32 14c-4 10-8 18-8 26s4 14 8 16M32 14c4 10 8 18 8 26s-4 14-8 16" stroke="#ce93d8" stroke-width="2" fill="none"/><path d="M28 56l-2 4M32 56v5M36 56l2 4" stroke="#8d6e63" stroke-width="2" stroke-linecap="round"/><path d="M32 10V4" stroke="#7cb342" stroke-width="3" stroke-linecap="round"/></svg>',
-garlic:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c1 8 20 14 20 30 0 11-9 18-20 18s-20-7-20-18C12 22 31 16 32 8z" fill="#f5f0e6" stroke="#bfb39a" stroke-width="2"/><path d="M32 20c-6 8-6 28 0 36M32 20c6 8 6 28 0 36M32 20c-14 8-16 26-12 32M32 20c14 8 16 26 12 32" stroke="#bfb39a" stroke-width="2" fill="none"/><path d="M28 56l-2 4M32 56v5M36 56l2 4" stroke="#a1887f" stroke-width="2" stroke-linecap="round"/></svg>',
-cabbage:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="24" fill="#7cb342"/><path d="M14 26c6-10 22-14 36 0-6 8-12 12-18 12s-12-4-18-12z" fill="#aed581"/><path d="M32 38V58M32 46l-10-8M32 46l10-8M32 52l-14-8M32 52l14-8" stroke="#c5e1a5" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="32" cy="26" r="6" fill="#dcedc8"/></svg>',
-potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" rx="24" ry="17" fill="#c49a6c" transform="rotate(-15 32 34)"/><ellipse cx="26" cy="28" rx="9" ry="4" fill="#d7b48c" transform="rotate(-15 26 28)"/><circle cx="20" cy="38" r="1.8" fill="#7b5838"/><circle cx="34" cy="42" r="1.8" fill="#7b5838"/><circle cx="44" cy="30" r="1.8" fill="#7b5838"/><circle cx="38" cy="24" r="1.5" fill="#7b5838"/><circle cx="48" cy="40" r="1.5" fill="#7b5838"/></svg>'
+const ICONS={
+apple:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20c-4-4-14-5-18 3s-2 22 6 29c4 4 8 4 12 2 4 2 8 2 12-2 8-7 10-21 6-29s-14-7-18-3z" fill="#e53935"/><path d="M20 28c-2 4-2 9 0 13" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/><path d="M32 20c0-5 2-9 5-12" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M35 13c4-5 10-5 13-3-3 4-9 5-13 3z" fill="#43a047"/></svg>',
+pear:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 14c-5 0-7 5-7 10 0 5-11 9-11 21 0 9 8 13 18 13s18-4 18-13c0-12-11-16-11-21 0-5-2-10-7-10z" fill="#c0ca33"/><path d="M21 40c0 5 2 9 6 11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/><path d="M32 14c0-4 1-7 3-9" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 9c3-4 9-4 11-2-3 3-8 4-11 2z" fill="#43a047"/></svg>',
+banana:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 18c0 22 16 36 38 33 6-1 9-4 8-7-16 5-32-5-38-25-1-4-8-5-8-1z" fill="#fdd835" stroke="#f9a825" stroke-width="2" stroke-linejoin="round"/><path d="M18 22c4 13 14 21 28 23" stroke="#f9a825" stroke-width="2" fill="none"/><path d="M11 17l-2-7 6 3z" fill="#6d4c41"/><circle cx="57" cy="45" r="2" fill="#6d4c41"/></svg>',
+carrots:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-4-6-6-12-4-16 4 3 5 9 4 16zM32 18c2-7 7-12 12-12-1 5-6 10-12 12zM32 18c-5-4-12-5-16-3 4 4 10 5 16 3z" fill="#43a047"/><path d="M20 20h24l-10 40c-1 2-3 2-4 0z" fill="#fb8c00"/><path d="M24 28h6M27 37h5M29 46h4" stroke="#e65100" stroke-width="2" stroke-linecap="round"/></svg>',
+onions:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c2 9 18 14 18 31 0 10-8 16-18 16s-18-6-18-16c0-17 16-22 18-31z" fill="#ab47bc"/><path d="M32 12c-6 10-10 18-10 28s4 14 10 15M32 12c6 10 10 18 10 28s-4 14-10 15" stroke="#7b1fa2" stroke-width="2" fill="none"/><path d="M28 55l-2 5M32 55v6M36 55l2 5" stroke="#8d6e63" stroke-width="2" stroke-linecap="round"/></svg>',
+garlic:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c1 10 20 16 20 32 0 10-9 17-20 17s-20-7-20-17C12 22 31 16 32 6z" fill="#f5f0e6" stroke="#bcaaa4" stroke-width="2"/><path d="M32 14c-4 10-6 20-4 41M32 14c4 10 6 20 4 41M24 26c-5 8-6 18-2 27M40 26c5 8 6 18 2 27" stroke="#bcaaa4" stroke-width="2" fill="none"/><path d="M27 55l-2 5M32 55v6M37 55l2 5" stroke="#a1887f" stroke-width="2" stroke-linecap="round"/></svg>',
+cabbage:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="24" fill="#8bc34a"/><path d="M32 58V22M32 34l-12-12M32 42l-16-10M32 34l12-12M32 42l16-10" stroke="#c5e1a5" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M12 28c6-14 22-20 34-12 4 3 7 7 8 12-8-8-20-10-30-4-5 3-9 4-12 4z" fill="#558b2f"/></svg>',
+potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" rx="25" ry="17" transform="rotate(-15 32 34)" fill="#c69c6d"/><ellipse cx="26" cy="28" rx="10" ry="4" transform="rotate(-15 26 28)" fill="#fff" opacity=".25"/><circle cx="20" cy="38" r="1.8" fill="#8d6e63"/><circle cx="34" cy="30" r="1.8" fill="#8d6e63"/><circle cx="42" cy="40" r="1.8" fill="#8d6e63"/><circle cx="30" cy="43" r="1.8" fill="#8d6e63"/><circle cx="46" cy="28" r="1.8" fill="#8d6e63"/></svg>'
 };
-var CHEV='<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-var GROUPS=[
-{id:'fruit',name:'Fruit',items:[
-{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy pome fruit enjoyed fresh, baked or pressed into cider.',specs:{'Calories':'52 kcal','Carbohydrates':'14 g','Fiber':'2.4 g','Vitamin C':'4.6 mg','Color':'Red, green or yellow','Taste':'Sweet to tart','Season':'Late summer – autumn','Origin':'Central Asia','Storage':'Refrigerate up to 6 weeks'},fact:'There are more than 7,500 known apple cultivars worldwide.'},
-{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'Soft, buttery fruit with a distinctive teardrop shape and delicate sweetness.',specs:{'Calories':'57 kcal','Carbohydrates':'15 g','Fiber':'3.1 g','Vitamin C':'4.3 mg','Color':'Green, yellow, red or brown','Taste':'Sweet, mildly floral','Season':'Late summer – winter','Origin':'Europe & Western Asia','Storage':'Ripen at room temperature, then refrigerate'},fact:'Pears ripen from the inside out, so check the neck near the stem for softness.'},
-{id:'banana',name:'Banana',latin:'Musa spp.',desc:'Creamy tropical fruit packed with energy and naturally wrapped in its own peel.',specs:{'Calories':'89 kcal','Carbohydrates':'23 g','Fiber':'2.6 g','Potassium':'358 mg','Color':'Yellow (green when unripe)','Taste':'Sweet, creamy','Season':'All year','Origin':'Southeast Asia','Storage':'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb.'}
+const HOME_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z" fill="currentColor"/></svg>';
+const DATA=[
+{group:'Fruit',items:[
+{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4–6 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
+{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out — check the neck near the stem for softness.'},
+{id:'banana',name:'Banana',latin:'Musa spp.',desc:'A naturally packaged, energy-rich tropical fruit that grows in hanging clusters called hands.',c:{Family:'Musaceae',Origin:'Southeast Asia & Papua New Guinea',Calories:'89 kcal',Carbohydrates:'23 g',Fiber:'2.6 g','Key nutrients':'Potassium, vitamin B6, vitamin C',Taste:'Sweet, creamy',Season:'All year round',Storage:'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb, not a tree.'}
 ]},
-{id:'vegetables',name:'Vegetables',items:[
-{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'Crunchy root vegetable famous for its bright color and natural sweetness.',specs:{'Calories':'41 kcal','Carbohydrates':'10 g','Fiber':'2.8 g','Vitamin A':'835 µg','Color':'Orange, purple, yellow, white','Taste':'Sweet, earthy','Season':'Summer – autumn','Origin':'Persia (Iran & Afghanistan)','Storage':'Refrigerate up to 4 weeks'},fact:'The first cultivated carrots were purple and yellow; orange varieties appeared in the 17th century.'},
-{id:'onions',name:'Onions',latin:'Allium cepa',desc:'Layered bulb that forms the aromatic base of countless dishes.',specs:{'Calories':'40 kcal','Carbohydrates':'9.3 g','Fiber':'1.7 g','Vitamin C':'7.4 mg','Color':'Yellow, red or white','Taste':'Pungent raw, sweet when cooked','Season':'All year','Origin':'Central Asia','Storage':'Cool, dry, dark and ventilated'},fact:'Chilling an onion before cutting reduces the tear-inducing compounds released.'},
-{id:'garlic',name:'Garlic',latin:'Allium sativum',desc:'Aromatic bulb of cloves, prized for bold flavor and traditional health uses.',specs:{'Calories':'149 kcal','Carbohydrates':'33 g','Fiber':'2.1 g','Vitamin B6':'1.2 mg','Color':'White to purple-streaked','Taste':'Pungent, spicy, savory','Season':'Summer harvest, stored all year','Origin':'Central Asia','Storage':'Room temperature, dry and ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximizes allicin formation.'},
-{id:'cabbage',name:'Cabbage',latin:'Brassica oleracea var. capitata',desc:'Dense, leafy head that is versatile, affordable and great for fermenting.',specs:{'Calories':'25 kcal','Carbohydrates':'5.8 g','Fiber':'2.5 g','Vitamin K':'76 µg','Color':'Green, red or white','Taste':'Mild, slightly peppery','Season':'Autumn – winter','Origin':'Europe','Storage':'Refrigerate up to 2 months'},fact:'Sauerkraut and kimchi are both made by fermenting cabbage.'},
-{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'Starchy tuber and one of the most important staple foods in the world.',specs:{'Calories':'77 kcal','Carbohydrates':'17 g','Fiber':'2.2 g','Potassium':'425 mg','Color':'Brown, red, yellow or purple','Taste':'Mild, earthy','Season':'Summer – autumn','Origin':'Andes, South America','Storage':'Cool, dark place (not the fridge)'},fact:'Potatoes were the first vegetable grown in space, aboard the Space Shuttle Columbia in 1995.'}
+{group:'Vegetables',items:[
+{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3–4 weeks'},fact:'The first cultivated carrots were purple and yellow — orange became popular in the 17th century.'},
+{id:'onions',name:'Onions',latin:'Allium cepa',desc:'A layered bulb that forms the flavour base of countless dishes in cuisines worldwide.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'40 kcal',Carbohydrates:'9 g',Fiber:'1.7 g','Key nutrients':'Vitamin C, vitamin B6, quercetin',Taste:'Pungent raw, sweet when cooked',Season:'Late summer to autumn',Storage:'Cool, dark, dry and ventilated'},fact:'Chilling an onion before cutting reduces the sulfur compounds that make you cry.'},
+{id:'garlic',name:'Garlic',latin:'Allium sativum',desc:'An aromatic bulb made of cloves, prized for its intense flavour and long culinary history.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'149 kcal',Carbohydrates:'33 g',Fiber:'2.1 g','Key nutrients':'Manganese, vitamin B6, allicin',Taste:'Sharp and spicy raw, nutty roasted',Season:'Summer',Storage:'Room temperature, dry, ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximises allicin formation.'},
+{id:'cabbage',name:'Cabbage',latin:'Brassica oleracea var. capitata',desc:'A dense, leafy head vegetable that is versatile, inexpensive and keeps for a long time.',c:{Family:'Brassicaceae',Origin:'Europe (Mediterranean)',Calories:'25 kcal',Carbohydrates:'6 g',Fiber:'2.5 g','Key nutrients':'Vitamin C, vitamin K, folate',Taste:'Mild, slightly peppery',Season:'Autumn to winter',Storage:'Fridge, whole, up to 2 months'},fact:'Broccoli, kale, cauliflower and cabbage were all bred from the same wild plant.'},
+{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place — not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
 ]}
 ];
-var ALL=[];GROUPS.forEach(function(g){g.items.forEach(function(i){i.group=g.name;ALL.push(i);});});
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-
-var state={};try{state=JSON.parse(localStorage.getItem('navGroups')||'{}');}catch(e){}
-function save(){try{localStorage.setItem('navGroups',JSON.stringify(state));}catch(e){}}
-
-var navEl=document.getElementById('navGroups');
-navEl.innerHTML=GROUPS.map(function(g){
-  var open=state[g.id]!==false;
-  return '<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="grp-'+g.id+'" data-group="'+g.id+'"><span>'+esc(g.name)+'</span>'+CHEV+'</button>'+
-  '<ul id="grp-'+g.id+'"'+(open?'':' hidden')+'>'+g.items.map(function(i){return '<li><a class="nav-item" href="#'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>';}).join('')+'</ul></div>';
-}).join('');
-
-function setGroup(btn,open){
-  btn.setAttribute('aria-expanded',open);
-  document.getElementById(btn.getAttribute('aria-controls')).hidden=!open;
-  state[btn.dataset.group]=open;
+const ALL=DATA.flatMap(g=>g.items.map(i=>({...i,group:g.group})));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const STORE='produce-nav-state';
+let state={};try{state=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
+function buildNav(){
+ let html='<a class="home-link" href="#/" data-id="">'+HOME_ICON+'Home</a>';
+ DATA.forEach((g,gi)=>{
+  const open=state[g.group]!==false;const lid='grp-'+gi;
+  html+='<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="'+lid+'" data-group="'+esc(g.group)+'"><span>'+esc(g.group)+'<span class="count">('+g.items.length+')</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button><ul id="'+lid+'"'+(open?'':' hidden')+'>';
+  g.items.forEach(i=>{html+='<li><a class="nav-link" href="#/'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>'});
+  html+='</ul></div>';
+ });
+ $('#navGroups').innerHTML=html;
 }
-navEl.addEventListener('click',function(e){
-  var btn=e.target.closest('.group-toggle');
-  if(btn){setGroup(btn,btn.getAttribute('aria-expanded')!=='true');save();}
+function setGroup(btn,open){btn.setAttribute('aria-expanded',open);document.getElementById(btn.getAttribute('aria-controls')).hidden=!open;state[btn.dataset.group]=open;save()}
+$('#navGroups').addEventListener('click',e=>{
+ const b=e.target.closest('.group-toggle');
+ if(b){setGroup(b,b.getAttribute('aria-expanded')!=='true');return}
+ if(e.target.closest('a'))closeNav();
 });
-function setAll(open){document.querySelectorAll('.group-toggle').forEach(function(b){setGroup(b,open);});save();}
-document.getElementById('expandAll').onclick=function(){setAll(true);};
-document.getElementById('collapseAll').onclick=function(){setAll(false);};
-
-var main=document.getElementById('main');
-function renderHome(){
-  document.title='Fresh Produce Guide';
-  main.innerHTML='<h1 tabindex="-1">Welcome to the Fresh Produce Guide</h1><p>Pick a fruit or vegetable from the menu, or choose one below, to see its key characteristics.</p>'+
-  GROUPS.map(function(g){return '<h2>'+esc(g.name)+'</h2><ul class="cards">'+g.items.map(function(i){return '<li><a class="card" href="#'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>';}).join('')+'</ul>';}).join('');
+$('#expandAll').onclick=()=>document.querySelectorAll('.group-toggle').forEach(b=>setGroup(b,true));
+$('#collapseAll').onclick=()=>document.querySelectorAll('.group-toggle').forEach(b=>setGroup(b,false));
+function openNav(){document.body.classList.add('nav-open');$('#menuBtn').setAttribute('aria-expanded','true')}
+function closeNav(){document.body.classList.remove('nav-open');$('#menuBtn').setAttribute('aria-expanded','false')}
+$('#menuBtn').onclick=()=>document.body.classList.contains('nav-open')?closeNav():openNav();
+$('#backdrop').onclick=closeNav;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav()});
+function homeView(){
+ let h='<h1>Welcome to the Fresh Produce Guide</h1><p>Choose an item from the navigation on the left, or pick one of the cards below to see its icon and key characteristics.</p>';
+ DATA.forEach(g=>{h+='<h2 class="section">'+esc(g.group)+'</h2><div class="cards">'+g.items.map(i=>'<a class="card" href="#/'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><small>'+esc(i.c.Calories)+'</small></a>').join('')+'</div>'});
+ return h;
 }
-function renderItem(i){
-  document.title=i.name+' – Fresh Produce Guide';
-  var idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
-  var rows=Object.keys(i.specs).map(function(k){return '<tr><th scope="row">'+esc(k)+'</th><td>'+esc(i.specs[k])+'</td></tr>';}).join('');
-  main.innerHTML='<article><div class="detail-hero"><div class="icon">'+ICONS[i.id]+'</div><div><span class="badge">'+esc(i.group)+'</span><h1 tabindex="-1">'+esc(i.name)+'</h1><p><em>'+esc(i.latin)+'</em></p><p>'+esc(i.desc)+'</p></div></div>'+
-  '<h2>Characteristics</h2><table class="specs"><caption class="skip">'+esc(i.name)+' characteristics (per 100 g)</caption><tbody>'+rows+'</tbody></table>'+
-  '<div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div>'+
-  '<div class="pager"><a href="#'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#'+next.id+'">'+esc(next.name)+' &rarr;</a></div></article>';
+function itemView(i){
+ const idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
+ const rows=Object.entries(i.c).map(([k,v])=>'<tr><th scope="row">'+esc(k)+(k==='Calories'||k==='Carbohydrates'||k==='Fiber'?' <small>(per 100 g)</small>':'')+'</th><td>'+esc(v)+'</td></tr>').join('');
+ return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p></div></div><h2 class="section">Characteristics</h2><table><caption class="skip">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><div class="pager"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></div></article>';
 }
-function route(first){
-  var id=(location.hash||'#home').slice(1);
-  var item=ALL.filter(function(i){return i.id===id;})[0];
-  if(item){
-    renderItem(item);
-    var g=GROUPS.filter(function(x){return x.name===item.group;})[0];
-    var btn=document.querySelector('[data-group="'+g.id+'"]');
-    if(btn.getAttribute('aria-expanded')!=='true'){setGroup(btn,true);save();}
-  }else{id='home';renderHome();}
-  document.querySelectorAll('[data-id]').forEach(function(a){
-    if(a.dataset.id===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
-  });
-  closeNav();
-  if(!first){var h=main.querySelector('h1');if(h)h.focus();window.scrollTo(0,0);}
+function route(){
+ const id=location.hash.replace(/^#\/?/,'');
+ const item=ALL.find(i=>i.id===id);
+ const main=$('#main');
+ if(item){
+  main.innerHTML=itemView(item);document.title=item.name+' – Fresh Produce Guide';
+  const btn=[...document.querySelectorAll('.group-toggle')].find(b=>b.dataset.group===item.group);
+  if(btn&&btn.getAttribute('aria-expanded')!=='true')setGroup(btn,true);
+ }else if(id&&id!=='main'){
+  main.innerHTML='<h1>Not found</h1><p>That page does not exist. <a href="#/">Return home</a>.</p>';document.title='Not found – Fresh Produce Guide';
+ }else{main.innerHTML=homeView();document.title='Fresh Produce Guide'}
+ document.querySelectorAll('#navGroups a').forEach(a=>{if(a.dataset.id===(item?item.id:'')&&(item||!id||id==='main'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ if(id&&id!=='main'){main.focus({preventScroll:true});window.scrollTo(0,0)}
 }
-
-var menuBtn=document.getElementById('menuBtn');
-function closeNav(){document.body.classList.remove('nav-open');menuBtn.setAttribute('aria-expanded','false');}
-menuBtn.onclick=function(){var o=document.body.classList.toggle('nav-open');menuBtn.setAttribute('aria-expanded',o);if(o)document.querySelector('.sidebar a, .sidebar button').focus();};
-document.getElementById('backdrop').onclick=closeNav;
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('nav-open')){closeNav();menuBtn.focus();}});
-
-document.getElementById('year').textContent=new Date().getFullYear();
-window.addEventListener('hashchange',function(){route(false);});
-route(true);
-})();
+buildNav();
+$('#year').textContent=new Date().getFullYear();
+window.addEventListener('hashchange',route);
+route();
 </script>
 </body>
 </html>
