@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Produce Guide</title>
+<meta name="description" content="A small guide to fruits and vegetables with characteristics.">
+<style>
+:root{--bg:#f6f8f4;--surface:#fff;--text:#1f2a1f;--muted:#5d6b5d;--brand:#2e7d32;--brand-2:#66bb6a;--border:#dfe7dc;--active:#e8f5e9;--radius:12px;--sidebar:260px;--shadow:0 2px 10px rgba(30,60,30,.08)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh;line-height:1.55}
+a{color:var(--brand)}
+.skip{position:absolute;left:-999px;top:0;background:#000;color:#fff;padding:.5rem 1rem;z-index:100}
+.skip:focus{left:1rem;top:1rem}
+header.site-header{grid-area:header;background:linear-gradient(120deg,#1b5e20,#43a047);color:#fff;display:flex;align-items:center;gap:1rem;padding:1rem 1.5rem;box-shadow:var(--shadow);position:sticky;top:0;z-index:20}
+.logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;font-weight:700;font-size:1.3rem}
+.logo svg{width:36px;height:36px}
+.tagline{margin-left:auto;opacity:.9;font-size:.95rem}
+.menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;padding:.45rem .7rem;font-size:1rem;cursor:pointer}
+nav.sidebar{grid-area:nav;background:var(--surface);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
+.nav-tools{display:flex;gap:.4rem;margin:0 .25rem 1rem}
+.nav-tools button{flex:1;font:inherit;font-size:.8rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
+.nav-tools button:hover{color:var(--brand);border-color:var(--brand-2)}
+.home-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border-radius:8px;text-decoration:none;color:var(--text);font-weight:600;margin-bottom:.5rem}
+.group{margin-bottom:.5rem}
+.group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;font:inherit;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.8rem;color:var(--muted);padding:.6rem .75rem;border-radius:8px;cursor:pointer}
+.group-toggle:hover{background:var(--bg);color:var(--brand)}
+.chev{transition:transform .2s;width:16px;height:16px}
+.group-toggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.group ul{list-style:none;margin:0;padding:0 0 0 .25rem;overflow:hidden}
+.group ul[hidden]{display:none}
+.nav-item{display:flex;align-items:center;gap:.6rem;padding:.45rem .75rem;border-radius:8px;text-decoration:none;color:var(--text)}
+.nav-item svg{width:24px;height:24px;flex:none}
+.nav-item:hover,.home-link:hover{background:var(--bg)}
+.nav-item[aria-current="page"],.home-link[aria-current="page"]{background:var(--active);color:var(--brand);font-weight:600}
+a:focus-visible,button:focus-visible{outline:3px solid #ffb300;outline-offset:2px}
+main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);max-width:1000px;width:100%}
+main h1{margin-top:0;outline:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;padding:0;list-style:none}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;text-align:center;text-decoration:none;color:var(--text);display:block;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(30,60,30,.14)}
+.card svg{width:64px;height:64px}
+.card span{display:block;margin-top:.5rem;font-weight:600}
+.detail-hero{display:flex;gap:1.5rem;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
+.detail-hero .icon{width:120px;height:120px;flex:none;background:var(--bg);border-radius:50%;display:grid;place-items:center}
+.detail-hero .icon svg{width:88px;height:88px}
+.badge{display:inline-block;background:var(--active);color:var(--brand);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px}
+.detail-hero h1{margin:.3rem 0}
+.detail-hero p{margin:0;color:var(--muted)}
+.specs{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.specs th,.specs td{padding:.75rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+.specs th{width:40%;background:#fafcf9;font-weight:600;color:var(--muted)}
+.specs tr:last-child th,.specs tr:last-child td{border-bottom:0}
+.fact{margin-top:1.5rem;background:#fff8e1;border-left:4px solid #ffb300;padding:1rem 1.2rem;border-radius:8px}
+.pager{display:flex;justify-content:space-between;margin-top:1.5rem;gap:1rem}
+.pager a{text-decoration:none;font-weight:600}
+footer.site-footer{grid-area:footer;background:#1b2e1c;color:#cfd8cf;text-align:center;padding:1.2rem;font-size:.9rem}
+footer a{color:#a5d6a7}
+.backdrop{display:none}
+@media (max-width:800px){
+body{grid-template-columns:1fr;grid-template-areas:"header" "main" "footer"}
+.menu-btn{display:inline-block}
+.tagline{display:none}
+nav.sidebar{position:fixed;top:0;left:0;bottom:0;width:min(80vw,300px);z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:var(--shadow)}
+body.nav-open nav.sidebar{transform:none}
+body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
+.detail-hero{flex-direction:column;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <button class="menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">&#9776;</button>
+  <a class="logo" href="#home">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" opacity=".2"/><path d="M32 50C18 44 16 26 26 16c4 8 12 12 20 12-2 12-8 18-14 22z" fill="#c8e6c9"/><path d="M32 50c0-12 2-20 10-28" stroke="#1b5e20" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+    Fresh Produce Guide
+  </a>
+  <span class="tagline">Fruits &amp; vegetables at a glance</span>
+</header>
+
+<nav class="sidebar" id="sidebar" aria-label="Produce navigation">
+  <div class="nav-tools">
+    <button type="button" id="expandAll">Expand all</button>
+    <button type="button" id="collapseAll">Collapse all</button>
+  </div>
+  <a class="home-link" href="#home" data-id="home">&#127968; Home</a>
+  <div id="navGroups"></div>
+</nav>
+<div class="backdrop" id="backdrop"></div>
+
+<main id="main" tabindex="-1"></main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Fresh Produce Guide &middot; Nutrition values are approximate, per 100&nbsp;g raw.</p>
+</footer>
+
+<script>
+(function(){
+var ICONS={
+apple:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-6-4-18-3-20 9-2 12 6 27 14 28 3 0 4-1 6-1s3 1 6 1c8-1 16-16 14-28-2-12-14-13-20-9z" fill="#e53935"/><path d="M20 26c-2 3-2 7-1 10" stroke="#ff8a80" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M32 18c0-5 2-9 5-11" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M35 13c4-6 11-6 13-4-3 5-9 6-13 4z" fill="#43a047"/></svg>',
+pear:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 14c-5 0-7 5-7 10 0 6-11 11-11 21 0 9 8 13 18 13s18-4 18-13c0-10-11-15-11-21 0-5-2-10-7-10z" fill="#9ccc65"/><path d="M22 42c0 4 2 7 5 9" stroke="#dcedc8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M32 14c0-4 1-7 3-9" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 10c3-5 9-5 11-3-3 4-7 5-11 3z" fill="#43a047"/></svg>',
+banana:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 18c3 24 22 38 44 32 4-1 4-5 0-5-18 2-31-10-37-28-1-4-7-3-7 1z" fill="#fdd835"/><path d="M14 22c5 14 16 24 32 25" stroke="#f9a825" stroke-width="2" fill="none"/><path d="M9 15l3-5 5 3-2 4z" fill="#6d4c41"/><circle cx="56" cy="47.5" r="2" fill="#5d4037"/></svg>',
+carrots:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M44 20c4 4 4 8 0 12L18 56c-3 3-7-1-4-4L36 22c3-4 5-5 8-2z" fill="#fb8c00"/><path d="M30 32l5 4M24 40l4 3M20 47l3 2" stroke="#e65100" stroke-width="2" stroke-linecap="round"/><path d="M42 21c0-8 4-14 10-16-2 6-4 11-10 16zM44 23c6-4 12-4 16-2-5 4-10 4-16 2zM43 22c2-6 2-12-1-16" fill="#43a047" stroke="#43a047" stroke-width="2" stroke-linejoin="round"/></svg>',
+onions:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 10c2 8 18 14 18 30 0 10-8 16-18 16S14 50 14 40c0-16 16-22 18-30z" fill="#ab47bc"/><path d="M32 14c-4 10-8 18-8 26s4 14 8 16M32 14c4 10 8 18 8 26s-4 14-8 16" stroke="#ce93d8" stroke-width="2" fill="none"/><path d="M28 56l-2 4M32 56v5M36 56l2 4" stroke="#8d6e63" stroke-width="2" stroke-linecap="round"/><path d="M32 10V4" stroke="#7cb342" stroke-width="3" stroke-linecap="round"/></svg>',
+garlic:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c1 8 20 14 20 30 0 11-9 18-20 18s-20-7-20-18C12 22 31 16 32 8z" fill="#f5f0e6" stroke="#bfb39a" stroke-width="2"/><path d="M32 20c-6 8-6 28 0 36M32 20c6 8 6 28 0 36M32 20c-14 8-16 26-12 32M32 20c14 8 16 26 12 32" stroke="#bfb39a" stroke-width="2" fill="none"/><path d="M28 56l-2 4M32 56v5M36 56l2 4" stroke="#a1887f" stroke-width="2" stroke-linecap="round"/></svg>',
+cabbage:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="24" fill="#7cb342"/><path d="M14 26c6-10 22-14 36 0-6 8-12 12-18 12s-12-4-18-12z" fill="#aed581"/><path d="M32 38V58M32 46l-10-8M32 46l10-8M32 52l-14-8M32 52l14-8" stroke="#c5e1a5" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="32" cy="26" r="6" fill="#dcedc8"/></svg>',
+potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" rx="24" ry="17" fill="#c49a6c" transform="rotate(-15 32 34)"/><ellipse cx="26" cy="28" rx="9" ry="4" fill="#d7b48c" transform="rotate(-15 26 28)"/><circle cx="20" cy="38" r="1.8" fill="#7b5838"/><circle cx="34" cy="42" r="1.8" fill="#7b5838"/><circle cx="44" cy="30" r="1.8" fill="#7b5838"/><circle cx="38" cy="24" r="1.5" fill="#7b5838"/><circle cx="48" cy="40" r="1.5" fill="#7b5838"/></svg>'
+};
+var CHEV='<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var GROUPS=[
+{id:'fruit',name:'Fruit',items:[
+{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy pome fruit enjoyed fresh, baked or pressed into cider.',specs:{'Calories':'52 kcal','Carbohydrates':'14 g','Fiber':'2.4 g','Vitamin C':'4.6 mg','Color':'Red, green or yellow','Taste':'Sweet to tart','Season':'Late summer – autumn','Origin':'Central Asia','Storage':'Refrigerate up to 6 weeks'},fact:'There are more than 7,500 known apple cultivars worldwide.'},
+{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'Soft, buttery fruit with a distinctive teardrop shape and delicate sweetness.',specs:{'Calories':'57 kcal','Carbohydrates':'15 g','Fiber':'3.1 g','Vitamin C':'4.3 mg','Color':'Green, yellow, red or brown','Taste':'Sweet, mildly floral','Season':'Late summer – winter','Origin':'Europe & Western Asia','Storage':'Ripen at room temperature, then refrigerate'},fact:'Pears ripen from the inside out, so check the neck near the stem for softness.'},
+{id:'banana',name:'Banana',latin:'Musa spp.',desc:'Creamy tropical fruit packed with energy and naturally wrapped in its own peel.',specs:{'Calories':'89 kcal','Carbohydrates':'23 g','Fiber':'2.6 g','Potassium':'358 mg','Color':'Yellow (green when unripe)','Taste':'Sweet, creamy','Season':'All year','Origin':'Southeast Asia','Storage':'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb.'}
+]},
+{id:'vegetables',name:'Vegetables',items:[
+{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'Crunchy root vegetable famous for its bright color and natural sweetness.',specs:{'Calories':'41 kcal','Carbohydrates':'10 g','Fiber':'2.8 g','Vitamin A':'835 µg','Color':'Orange, purple, yellow, white','Taste':'Sweet, earthy','Season':'Summer – autumn','Origin':'Persia (Iran & Afghanistan)','Storage':'Refrigerate up to 4 weeks'},fact:'The first cultivated carrots were purple and yellow; orange varieties appeared in the 17th century.'},
+{id:'onions',name:'Onions',latin:'Allium cepa',desc:'Layered bulb that forms the aromatic base of countless dishes.',specs:{'Calories':'40 kcal','Carbohydrates':'9.3 g','Fiber':'1.7 g','Vitamin C':'7.4 mg','Color':'Yellow, red or white','Taste':'Pungent raw, sweet when cooked','Season':'All year','Origin':'Central Asia','Storage':'Cool, dry, dark and ventilated'},fact:'Chilling an onion before cutting reduces the tear-inducing compounds released.'},
+{id:'garlic',name:'Garlic',latin:'Allium sativum',desc:'Aromatic bulb of cloves, prized for bold flavor and traditional health uses.',specs:{'Calories':'149 kcal','Carbohydrates':'33 g','Fiber':'2.1 g','Vitamin B6':'1.2 mg','Color':'White to purple-streaked','Taste':'Pungent, spicy, savory','Season':'Summer harvest, stored all year','Origin':'Central Asia','Storage':'Room temperature, dry and ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximizes allicin formation.'},
+{id:'cabbage',name:'Cabbage',latin:'Brassica oleracea var. capitata',desc:'Dense, leafy head that is versatile, affordable and great for fermenting.',specs:{'Calories':'25 kcal','Carbohydrates':'5.8 g','Fiber':'2.5 g','Vitamin K':'76 µg','Color':'Green, red or white','Taste':'Mild, slightly peppery','Season':'Autumn – winter','Origin':'Europe','Storage':'Refrigerate up to 2 months'},fact:'Sauerkraut and kimchi are both made by fermenting cabbage.'},
+{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'Starchy tuber and one of the most important staple foods in the world.',specs:{'Calories':'77 kcal','Carbohydrates':'17 g','Fiber':'2.2 g','Potassium':'425 mg','Color':'Brown, red, yellow or purple','Taste':'Mild, earthy','Season':'Summer – autumn','Origin':'Andes, South America','Storage':'Cool, dark place (not the fridge)'},fact:'Potatoes were the first vegetable grown in space, aboard the Space Shuttle Columbia in 1995.'}
+]}
+];
+var ALL=[];GROUPS.forEach(function(g){g.items.forEach(function(i){i.group=g.name;ALL.push(i);});});
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+var state={};try{state=JSON.parse(localStorage.getItem('navGroups')||'{}');}catch(e){}
+function save(){try{localStorage.setItem('navGroups',JSON.stringify(state));}catch(e){}}
+
+var navEl=document.getElementById('navGroups');
+navEl.innerHTML=GROUPS.map(function(g){
+  var open=state[g.id]!==false;
+  return '<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="grp-'+g.id+'" data-group="'+g.id+'"><span>'+esc(g.name)+'</span>'+CHEV+'</button>'+
+  '<ul id="grp-'+g.id+'"'+(open?'':' hidden')+'>'+g.items.map(function(i){return '<li><a class="nav-item" href="#'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>';}).join('')+'</ul></div>';
+}).join('');
+
+function setGroup(btn,open){
+  btn.setAttribute('aria-expanded',open);
+  document.getElementById(btn.getAttribute('aria-controls')).hidden=!open;
+  state[btn.dataset.group]=open;
+}
+navEl.addEventListener('click',function(e){
+  var btn=e.target.closest('.group-toggle');
+  if(btn){setGroup(btn,btn.getAttribute('aria-expanded')!=='true');save();}
+});
+function setAll(open){document.querySelectorAll('.group-toggle').forEach(function(b){setGroup(b,open);});save();}
+document.getElementById('expandAll').onclick=function(){setAll(true);};
+document.getElementById('collapseAll').onclick=function(){setAll(false);};
+
+var main=document.getElementById('main');
+function renderHome(){
+  document.title='Fresh Produce Guide';
+  main.innerHTML='<h1 tabindex="-1">Welcome to the Fresh Produce Guide</h1><p>Pick a fruit or vegetable from the menu, or choose one below, to see its key characteristics.</p>'+
+  GROUPS.map(function(g){return '<h2>'+esc(g.name)+'</h2><ul class="cards">'+g.items.map(function(i){return '<li><a class="card" href="#'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>';}).join('')+'</ul>';}).join('');
+}
+function renderItem(i){
+  document.title=i.name+' – Fresh Produce Guide';
+  var idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
+  var rows=Object.keys(i.specs).map(function(k){return '<tr><th scope="row">'+esc(k)+'</th><td>'+esc(i.specs[k])+'</td></tr>';}).join('');
+  main.innerHTML='<article><div class="detail-hero"><div class="icon">'+ICONS[i.id]+'</div><div><span class="badge">'+esc(i.group)+'</span><h1 tabindex="-1">'+esc(i.name)+'</h1><p><em>'+esc(i.latin)+'</em></p><p>'+esc(i.desc)+'</p></div></div>'+
+  '<h2>Characteristics</h2><table class="specs"><caption class="skip">'+esc(i.name)+' characteristics (per 100 g)</caption><tbody>'+rows+'</tbody></table>'+
+  '<div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div>'+
+  '<div class="pager"><a href="#'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#'+next.id+'">'+esc(next.name)+' &rarr;</a></div></article>';
+}
+function route(first){
+  var id=(location.hash||'#home').slice(1);
+  var item=ALL.filter(function(i){return i.id===id;})[0];
+  if(item){
+    renderItem(item);
+    var g=GROUPS.filter(function(x){return x.name===item.group;})[0];
+    var btn=document.querySelector('[data-group="'+g.id+'"]');
+    if(btn.getAttribute('aria-expanded')!=='true'){setGroup(btn,true);save();}
+  }else{id='home';renderHome();}
+  document.querySelectorAll('[data-id]').forEach(function(a){
+    if(a.dataset.id===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  });
+  closeNav();
+  if(!first){var h=main.querySelector('h1');if(h)h.focus();window.scrollTo(0,0);}
+}
+
+var menuBtn=document.getElementById('menuBtn');
+function closeNav(){document.body.classList.remove('nav-open');menuBtn.setAttribute('aria-expanded','false');}
+menuBtn.onclick=function(){var o=document.body.classList.toggle('nav-open');menuBtn.setAttribute('aria-expanded',o);if(o)document.querySelector('.sidebar a, .sidebar button').focus();};
+document.getElementById('backdrop').onclick=closeNav;
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('nav-open')){closeNav();menuBtn.focus();}});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+window.addEventListener('hashchange',function(){route(false);});
+route(true);
+})();
+</script>
+</body>
+</html>
