@@ -11,6 +11,7 @@
 html,body{margin:0;height:100%}
 body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh}
 a{color:var(--accent)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem 1rem;z-index:100}
 .skip:focus{left:1rem;top:1rem}
 header{grid-area:header;background:linear-gradient(120deg,var(--header),#388e3c);color:#fff;display:flex;align-items:center;gap:1rem;padding:.9rem 1.5rem;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.15)}
@@ -22,21 +23,22 @@ nav{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);p
 .nav-tools{display:flex;gap:.4rem;margin:0 .25rem .75rem}
 .nav-tools button{flex:1;font-size:.78rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
 .nav-tools button:hover{color:var(--accent);border-color:var(--accent)}
-.home-link{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;border-radius:8px;text-decoration:none;color:var(--text);font-weight:600;margin-bottom:.5rem}
 .group{margin-bottom:.4rem}
 .group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;padding:.6rem .7rem;font:inherit;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;cursor:pointer;border-radius:8px}
 .group-toggle:hover{background:var(--accent-soft)}
 .group-toggle .count{font-weight:500;color:var(--muted);margin-left:.4rem}
 .chev{width:16px;height:16px;transition:transform .25s}
 .group-toggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
-.group ul{list-style:none;margin:0;padding:0 0 0 .3rem;overflow:hidden;transition:max-height .3s ease}
+.group ul{list-style:none;margin:0;padding:0 0 0 .3rem}
 .group ul[hidden]{display:none}
 .nav-link,.home-link{display:flex;align-items:center;gap:.65rem;padding:.45rem .7rem;border-radius:8px;text-decoration:none;color:var(--text)}
+.home-link{font-weight:600;margin-bottom:.5rem}
 .nav-link svg,.home-link svg{width:26px;height:26px;flex:none}
 .nav-link:hover,.home-link:hover{background:var(--accent-soft)}
 .nav-link[aria-current="page"],.home-link[aria-current="page"]{background:var(--accent);color:#fff}
 :focus-visible{outline:3px solid #ffb300;outline-offset:2px}
 main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);max-width:1000px;width:100%}
+main:focus{outline:none}
 main h1{margin-top:0;font-size:clamp(1.6rem,3vw,2.3rem)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1rem;text-align:center;text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s}
@@ -106,16 +108,16 @@ potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" r
 const HOME_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z" fill="currentColor"/></svg>';
 const DATA=[
 {group:'Fruit',items:[
-{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4–6 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
-{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out — check the neck near the stem for softness.'},
+{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4\u20136 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
+{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out \u2014 check the neck near the stem for softness.'},
 {id:'banana',name:'Banana',latin:'Musa spp.',desc:'A naturally packaged, energy-rich tropical fruit that grows in hanging clusters called hands.',c:{Family:'Musaceae',Origin:'Southeast Asia & Papua New Guinea',Calories:'89 kcal',Carbohydrates:'23 g',Fiber:'2.6 g','Key nutrients':'Potassium, vitamin B6, vitamin C',Taste:'Sweet, creamy',Season:'All year round',Storage:'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb, not a tree.'}
 ]},
 {group:'Vegetables',items:[
-{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3–4 weeks'},fact:'The first cultivated carrots were purple and yellow — orange became popular in the 17th century.'},
+{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3\u20134 weeks'},fact:'The first cultivated carrots were purple and yellow \u2014 orange became popular in the 17th century.'},
 {id:'onions',name:'Onions',latin:'Allium cepa',desc:'A layered bulb that forms the flavour base of countless dishes in cuisines worldwide.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'40 kcal',Carbohydrates:'9 g',Fiber:'1.7 g','Key nutrients':'Vitamin C, vitamin B6, quercetin',Taste:'Pungent raw, sweet when cooked',Season:'Late summer to autumn',Storage:'Cool, dark, dry and ventilated'},fact:'Chilling an onion before cutting reduces the sulfur compounds that make you cry.'},
 {id:'garlic',name:'Garlic',latin:'Allium sativum',desc:'An aromatic bulb made of cloves, prized for its intense flavour and long culinary history.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'149 kcal',Carbohydrates:'33 g',Fiber:'2.1 g','Key nutrients':'Manganese, vitamin B6, allicin',Taste:'Sharp and spicy raw, nutty roasted',Season:'Summer',Storage:'Room temperature, dry, ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximises allicin formation.'},
 {id:'cabbage',name:'Cabbage',latin:'Brassica oleracea var. capitata',desc:'A dense, leafy head vegetable that is versatile, inexpensive and keeps for a long time.',c:{Family:'Brassicaceae',Origin:'Europe (Mediterranean)',Calories:'25 kcal',Carbohydrates:'6 g',Fiber:'2.5 g','Key nutrients':'Vitamin C, vitamin K, folate',Taste:'Mild, slightly peppery',Season:'Autumn to winter',Storage:'Fridge, whole, up to 2 months'},fact:'Broccoli, kale, cauliflower and cabbage were all bred from the same wild plant.'},
-{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place — not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
+{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place \u2014 not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
 ]}
 ];
 const ALL=DATA.flatMap(g=>g.items.map(i=>({...i,group:g.group})));
@@ -155,21 +157,21 @@ function homeView(){
 function itemView(i){
  const idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
  const rows=Object.entries(i.c).map(([k,v])=>'<tr><th scope="row">'+esc(k)+(k==='Calories'||k==='Carbohydrates'||k==='Fiber'?' <small>(per 100 g)</small>':'')+'</th><td>'+esc(v)+'</td></tr>').join('');
- return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p></div></div><h2 class="section">Characteristics</h2><table><caption class="skip">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><div class="pager"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></div></article>';
+ return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p></div></div><h2 class="section">Characteristics</h2><table><caption class="sr-only">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><nav class="pager" aria-label="Previous and next item"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></nav></article>';
 }
 function route(){
  const id=location.hash.replace(/^#\/?/,'');
  const item=ALL.find(i=>i.id===id);
  const main=$('#main');
  if(item){
-  main.innerHTML=itemView(item);document.title=item.name+' – Fresh Produce Guide';
+  main.innerHTML=itemView(item);document.title=item.name+' \u2013 Fresh Produce Guide';
   const btn=[...document.querySelectorAll('.group-toggle')].find(b=>b.dataset.group===item.group);
   if(btn&&btn.getAttribute('aria-expanded')!=='true')setGroup(btn,true);
  }else if(id&&id!=='main'){
-  main.innerHTML='<h1>Not found</h1><p>That page does not exist. <a href="#/">Return home</a>.</p>';document.title='Not found – Fresh Produce Guide';
- }else{main.innerHTML=homeView();document.title='Fresh Produce Guide'}
+  main.innerHTML='<h1>Not found</h1><p>That page does not exist. <a href="#/">Return home</a>.</p>';document.title='Not found \u2013 Fresh Produce Guide';
+ }else if(id!=='main'||!main.innerHTML){main.innerHTML=homeView();document.title='Fresh Produce Guide'}
  document.querySelectorAll('#navGroups a').forEach(a=>{if(a.dataset.id===(item?item.id:'')&&(item||!id||id==='main'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
- if(id&&id!=='main'){main.focus({preventScroll:true});window.scrollTo(0,0)}
+ if(id){main.focus({preventScroll:true});window.scrollTo(0,0)}
 }
 buildNav();
 $('#year').textContent=new Date().getFullYear();
