@@ -1,325 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kiln &amp; Co. — Handmade Ceramics</title>
-<meta name="description" content="Small-batch handmade ceramics: mugs, bowls, vases and plates.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fresh Produce Guide</title>
+<meta name="description" content="A small guide to fruit and vegetables with icons, prices and characteristics.">
 <style>
-:root{--bg:#faf7f2;--ink:#2b2621;--muted:#6f655b;--accent:#b5562f;--accent-d:#923f1f;--card:#fff;--line:#e7ded3;--radius:14px;--shadow:0 10px 30px rgba(43,38,33,.08)}
+:root{--bg:#f6f8f4;--panel:#fff;--text:#1f2a1f;--muted:#5d6b5d;--accent:#2e7d32;--accent-soft:#e6f2e6;--border:#dfe7dc;--header:#1b5e20;--radius:12px;--sidebar:270px;--price:#bf360c}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
-img,svg{display:block}
-a{color:inherit}
-button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:100}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh}
+a{color:var(--accent)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem 1rem;z-index:100}
 .skip:focus{left:1rem;top:1rem}
-.wrap{max-width:1150px;margin:0 auto;padding:0 1.25rem}
-header{position:sticky;top:0;z-index:20;background:rgba(250,247,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
-.logo{font-family:Georgia,serif;font-size:1.45rem;font-weight:700;text-decoration:none;letter-spacing:.3px}
-.logo span{color:var(--accent)}
-nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0}
-nav a{text-decoration:none;color:var(--muted);font-weight:500}
-nav a:hover{color:var(--ink)}
-.cart-btn{position:relative;display:flex;align-items:center;gap:.5rem;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:.55rem 1rem}
-.cart-btn:hover{background:#000}
-.badge{min-width:22px;height:22px;border-radius:999px;background:var(--accent);color:#fff;font-size:.78rem;font-weight:700;display:inline-grid;place-items:center;padding:0 6px;transition:transform .2s}
-.badge.bump{transform:scale(1.35)}
-.hero{padding:4.5rem 0 3rem;display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:center}
-.hero h1{font-family:Georgia,serif;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.1;margin:0 0 1rem}
-.hero p{color:var(--muted);font-size:1.12rem;max-width:34ch}
-.btn{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:.8rem 1.5rem;font-weight:600;text-decoration:none;transition:background .2s}
-.btn:hover{background:var(--accent-d)}
-.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
-.btn.ghost:hover{background:var(--ink);color:#fff}
-.hero-art{aspect-ratio:1;border-radius:50% 50% var(--radius) var(--radius);background:radial-gradient(circle at 30% 30%,#f0d9c2,#c98b62);display:grid;place-items:center;box-shadow:var(--shadow)}
-.hero-art svg{width:55%}
-section{padding:3rem 0}
-.sec-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}
-h2{font-family:Georgia,serif;font-size:2rem;margin:0}
-.filters{display:flex;gap:.5rem;flex-wrap:wrap}
-.filters button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:.4rem 1rem;color:var(--muted)}
-.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.5rem}
-.card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s}
-.card:hover{transform:translateY(-4px)}
-.thumb{aspect-ratio:4/3;display:grid;place-items:center}
-.thumb svg{width:45%;height:auto}
-.card-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
-.cat{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700}
-.card h3{margin:0;font-size:1.08rem}
-.desc{color:var(--muted);font-size:.9rem;margin:0}
-.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
-.price{font-weight:700;font-size:1.15rem}
-.add{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:.5rem 1rem;font-weight:600;font-size:.9rem}
-.add:hover{background:var(--accent)}
-.add.done{background:#3d7a4f}
-.about{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
-.about p{color:var(--muted)}
-.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
-.feat{background:#fff;border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow);font-size:.9rem}
-.feat strong{display:block;font-size:1.3rem;color:var(--accent)}
-.contact{background:var(--ink);color:#fff;border-radius:var(--radius);padding:2.5rem;text-align:center}
-.contact p{color:#d9cfc4}
-.contact form{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem}
-.contact input{padding:.8rem 1rem;border-radius:999px;border:0;min-width:240px;font:inherit}
-footer{text-align:center;color:var(--muted);padding:2rem 0;font-size:.9rem}
-/* Cart drawer */
-.overlay{position:fixed;inset:0;background:rgba(20,16,12,.45);opacity:0;visibility:hidden;transition:.25s;z-index:40}
-.overlay.open{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);z-index:50;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease;box-shadow:-10px 0 40px rgba(0,0,0,.15)}
-.drawer.open{transform:none}
-.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem;border-bottom:1px solid var(--line)}
-.drawer-head h2{font-size:1.4rem}
-.icon-btn{background:none;border:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:1.4rem;color:var(--ink)}
-.icon-btn:hover{background:var(--line)}
-.items{flex:1;overflow-y:auto;padding:1rem 1.25rem;list-style:none;margin:0}
-.item{display:grid;grid-template-columns:64px 1fr auto;gap:.85rem;align-items:center;padding:.85rem 0;border-bottom:1px solid var(--line)}
-.item .mini{width:64px;height:64px;border-radius:10px;display:grid;place-items:center}
-.item .mini svg{width:55%}
-.item h3{font-size:.95rem;margin:0}
-.item .unit{color:var(--muted);font-size:.85rem}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;margin-top:.35rem;background:#fff}
-.qty button{background:none;border:0;width:30px;height:30px;font-size:1rem}
-.qty span{min-width:24px;text-align:center;font-weight:600;font-size:.9rem}
-.item-right{text-align:right}
-.item-right strong{display:block}
-.remove{background:none;border:0;color:var(--muted);font-size:.8rem;text-decoration:underline;padding:0;margin-top:.3rem}
-.remove:hover{color:var(--accent)}
-.empty{text-align:center;color:var(--muted);padding:3rem 1rem}
-.empty .btn{margin-top:1rem}
-.summary{border-top:1px solid var(--line);padding:1.1rem 1.25rem 1.4rem;background:#fff}
-.row{display:flex;justify-content:space-between;margin:.25rem 0;color:var(--muted);font-size:.95rem}
-.row.total{color:var(--ink);font-weight:700;font-size:1.15rem;margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--line)}
-.ship-note{font-size:.82rem;color:var(--accent);margin:.4rem 0 .2rem}
-.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:.6rem}
-.progress div{height:100%;background:var(--accent);transition:width .3s}
-.checkout{width:100%;margin-top:.9rem;padding:.9rem}
-.clear{width:100%;background:none;border:0;color:var(--muted);margin-top:.5rem;text-decoration:underline;font-size:.85rem}
-.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--ink);color:#fff;padding:.75rem 1.25rem;border-radius:999px;z-index:60;transition:transform .3s;box-shadow:var(--shadow);font-size:.95rem}
-.toast.show{transform:translate(-50%,0)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-@media (max-width:760px){nav ul{display:none}.hero,.about{grid-template-columns:1fr}.hero{padding-top:2.5rem}.hero-art{max-width:320px;margin:0 auto}.feats{grid-template-columns:1fr 1fr 1fr}.cart-label{display:none}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+header{grid-area:header;background:linear-gradient(120deg,var(--header),#388e3c);color:#fff;display:flex;align-items:center;gap:1rem;padding:.9rem 1.5rem;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header .logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;font-weight:700;font-size:1.25rem}
+header .logo svg{width:34px;height:34px}
+header p{margin:0 0 0 auto;opacity:.85;font-size:.95rem}
+.menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:.4rem .7rem;font-size:1rem;cursor:pointer}
+nav#sidebar{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
+.nav-tools{display:flex;gap:.4rem;margin:0 .25rem .75rem}
+.nav-tools button{flex:1;font-size:.78rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
+.nav-tools button:hover{color:var(--accent);border-color:var(--accent)}
+.group{margin-bottom:.4rem}
+.group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:0;padding:.6rem .7rem;font:inherit;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;cursor:pointer;border-radius:8px}
+.group-toggle:hover{background:var(--accent-soft)}
+.group-toggle .count{font-weight:500;color:var(--muted);margin-left:.4rem}
+.chev{width:16px;height:16px;transition:transform .25s}
+.group-toggle[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.group ul{list-style:none;margin:0;padding:0 0 0 .3rem}
+.group ul[hidden]{display:none}
+.nav-link,.home-link{display:flex;align-items:center;gap:.65rem;padding:.45rem .7rem;border-radius:8px;text-decoration:none;color:var(--text)}
+.home-link{font-weight:600;margin-bottom:.5rem}
+.nav-link svg,.home-link svg{width:26px;height:26px;flex:none}
+.nav-link .nav-price{margin-left:auto;font-size:.78rem;font-weight:600;color:var(--price);white-space:nowrap}
+.nav-link:hover,.home-link:hover{background:var(--accent-soft)}
+.nav-link[aria-current="page"],.home-link[aria-current="page"]{background:var(--accent);color:#fff}
+.nav-link[aria-current="page"] .nav-price{color:#fff}
+:focus-visible{outline:3px solid #ffb300;outline-offset:2px}
+main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);max-width:1000px;width:100%}
+main:focus{outline:none}
+main h1{margin-top:0;font-size:clamp(1.6rem,3vw,2.3rem)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1rem;text-align:center;text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.card svg{width:64px;height:64px}
+.card span{display:block;font-weight:600;margin-top:.4rem}
+.card .card-price{display:block;color:var(--price);font-weight:700;margin-top:.2rem}
+.card small{color:var(--muted)}
+h2.section{margin:2rem 0 1rem;font-size:1.2rem;color:var(--accent)}
+.hero{display:flex;gap:1.5rem;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
+.hero .big{width:130px;height:130px;flex:none;background:var(--accent-soft);border-radius:50%;display:grid;place-items:center}
+.hero .big svg{width:96px;height:96px}
+.hero h1{margin:0 0 .3rem}
+.tag{display:inline-block;background:var(--accent-soft);color:var(--accent);padding:.15rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600}
+.hero p{margin:.5rem 0 0;color:var(--muted)}
+.hero .price-big{display:inline-flex;align-items:baseline;gap:.35rem;margin-top:.75rem;background:#fbe9e7;color:var(--price);font-size:1.5rem;font-weight:800;padding:.25rem .8rem;border-radius:10px}
+.hero .price-big small{font-size:.85rem;font-weight:600;color:#8d4a33}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+th{width:38%;color:var(--muted);font-weight:600;background:#fafcf9}
+tr:last-child th,tr:last-child td{border-bottom:0}
+.fact{margin-top:1.5rem;background:#fff8e1;border-left:4px solid #ffb300;padding:1rem 1.2rem;border-radius:8px}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:1.5rem}
+.pager a{text-decoration:none;font-weight:600}
+footer{grid-area:footer;background:#263238;color:#cfd8dc;padding:1.2rem 1.5rem;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;font-size:.9rem}
+footer a{color:#a5d6a7}
+.backdrop{display:none}
+@media (max-width:800px){
+body{grid-template-columns:1fr;grid-template-areas:"header" "main" "footer"}
+.menu-btn{display:inline-block}
+header p{display:none}
+nav#sidebar{position:fixed;top:0;left:0;bottom:0;width:min(85vw,var(--sidebar));z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:4px 0 20px rgba(0,0,0,.2)}
+body.nav-open nav#sidebar{transform:none}
+body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
+.hero{flex-direction:column;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header>
- <div class="wrap bar">
-  <a href="#" class="logo">Kiln <span>&amp;</span> Co.</a>
-  <nav aria-label="Main"><ul><li><a href="#shop">Shop</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></nav>
-  <button class="cart-btn" id="cartBtn" aria-controls="cart" aria-expanded="false">
-   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
-   <span class="cart-label">Cart</span>
-   <span class="badge" id="badge" aria-hidden="true">0</span>
-   <span class="sr" id="badgeSr">0 items in cart</span>
-  </button>
- </div>
+<button class="menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">&#9776;</button>
+<a class="logo" href="#/"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" opacity=".18"/><path d="M32 50C18 44 14 28 22 16c8 6 12 18 10 34zM32 50c14-6 18-22 10-34-8 6-12 18-10 34z" fill="#a5d6a7"/></svg>Fresh Produce Guide</a>
+<p>Fruit &amp; vegetables at a glance</p>
 </header>
-
-<main id="main">
- <div class="wrap hero">
-  <div>
-   <h1>Handmade ceramics for slow mornings.</h1>
-   <p>Small-batch stoneware thrown, glazed and fired in our tiny studio. Every piece is one of a kind.</p>
-   <p style="margin-top:1.5rem"><a href="#shop" class="btn">Shop the collection</a> <a href="#about" class="btn ghost">Our story</a></p>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-   <svg viewBox="0 0 100 100"><path d="M38 12h24v8c0 6 14 14 14 34 0 22-12 34-26 34S24 76 24 54c0-20 14-28 14-34z" fill="#fffaf3" opacity=".9"/><path d="M27 60c10 4 36 4 46 0" stroke="#c98b62" stroke-width="3" fill="none"/></svg>
-  </div>
- </div>
-
- <section id="shop">
-  <div class="wrap">
-   <div class="sec-head">
-    <h2>The Collection</h2>
-    <div class="filters" role="group" aria-label="Filter products" id="filters"></div>
-   </div>
-   <div class="grid" id="grid"></div>
-  </div>
- </section>
-
- <section id="about">
-  <div class="wrap about">
-   <div class="hero-art" style="border-radius:var(--radius);background:radial-gradient(circle at 70% 30%,#dfe5d8,#8ea38a)" aria-hidden="true">
-    <svg viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="36" ry="10" fill="#fffaf3" opacity=".6"/><path d="M16 50h68c-2 18-16 28-34 28S18 68 16 50z" fill="#fffaf3"/></svg>
-   </div>
-   <div>
-    <h2>Made by hand, made to last</h2>
-    <p>Kiln &amp; Co. started as a weekend hobby in a garage and grew into a two-person studio. We dig into local clays, mix our own glazes and fire everything at high temperature so it's safe for the dishwasher, microwave and daily life.</p>
-    <div class="feats">
-     <div class="feat"><strong>100%</strong>Handmade</div>
-     <div class="feat"><strong>$75+</strong>Free shipping</div>
-     <div class="feat"><strong>30 day</strong>Returns</div>
-    </div>
-   </div>
-  </div>
- </section>
-
- <section id="contact">
-  <div class="wrap">
-   <div class="contact">
-    <h2>Join the studio letter</h2>
-    <p>Kiln openings, new glazes and the occasional seconds sale.</p>
-    <form id="newsletter">
-     <label for="email" class="sr">Email address</label>
-     <input id="email" type="email" required placeholder="you@example.com">
-     <button class="btn" type="submit">Subscribe</button>
-    </form>
-   </div>
-  </div>
- </section>
-</main>
-
-<footer><div class="wrap">&copy; <span id="yr"></span> Kiln &amp; Co. — Demo store. Prices are for illustration only.</div></footer>
-
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" tabindex="-1">
- <div class="drawer-head">
-  <h2 id="cartTitle">Your cart</h2>
-  <button class="icon-btn" id="closeCart" aria-label="Close cart">&times;</button>
- </div>
- <ul class="items" id="items"></ul>
- <div class="summary" id="summary">
-  <p class="ship-note" id="shipNote"></p>
-  <div class="progress" aria-hidden="true"><div id="shipBar"></div></div>
-  <div class="row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
-  <div class="row"><span>Shipping</span><span id="shipping">$0.00</span></div>
-  <div class="row"><span>Est. tax (8%)</span><span id="tax">$0.00</span></div>
-  <div class="row total"><span>Total</span><span id="total">$0.00</span></div>
-  <button class="btn checkout" id="checkout">Checkout</button>
-  <button class="clear" id="clearCart">Clear cart</button>
- </div>
-</aside>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
+<div class="backdrop" id="backdrop"></div>
+<nav id="sidebar" aria-label="Produce navigation">
+<div class="nav-tools"><button type="button" id="expandAll">Expand all</button><button type="button" id="collapseAll">Collapse all</button></div>
+<div id="navGroups"></div>
+</nav>
+<main id="main" tabindex="-1"></main>
+<footer>
+<span>&copy; <span id="year"></span> Fresh Produce Guide</span>
+<span>Nutrition values are approximate, per 100&nbsp;g raw. Prices are dummy values for demonstration only.</span>
+<a href="#/">Back to home</a>
+</footer>
 <script>
-(function(){
-var SHAPES={
- Mugs:'<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M22 25h46v42c0 8-6 13-13 13H35c-7 0-13-5-13-13z" fill="#fffaf3"/><path d="M68 36h7c7 0 11 5 11 11s-4 11-11 11h-7" stroke="#fffaf3" stroke-width="7" fill="none"/></svg>',
- Bowls:'<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="40" rx="38" ry="8" fill="#fffaf3" opacity=".7"/><path d="M12 40h76c-2 22-18 34-38 34S14 62 12 40z" fill="#fffaf3"/></svg>',
- Vases:'<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M40 10h20v10c0 5 12 12 12 30 0 22-10 38-22 38S28 72 28 50c0-18 12-25 12-30z" fill="#fffaf3"/></svg>',
- Plates:'<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38" fill="#fffaf3"/><circle cx="50" cy="50" r="24" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="3"/></svg>'
+const ICONS={
+apple:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20c-4-4-14-5-18 3s-2 22 6 29c4 4 8 4 12 2 4 2 8 2 12-2 8-7 10-21 6-29s-14-7-18-3z" fill="#e53935"/><path d="M20 28c-2 4-2 9 0 13" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/><path d="M32 20c0-5 2-9 5-12" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M35 13c4-5 10-5 13-3-3 4-9 5-13 3z" fill="#43a047"/></svg>',
+pear:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 14c-5 0-7 5-7 10 0 5-11 9-11 21 0 9 8 13 18 13s18-4 18-13c0-12-11-16-11-21 0-5-2-10-7-10z" fill="#c0ca33"/><path d="M21 40c0 5 2 9 6 11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/><path d="M32 14c0-4 1-7 3-9" stroke="#6d4c41" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 9c3-4 9-4 11-2-3 3-8 4-11 2z" fill="#43a047"/></svg>',
+banana:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 18c0 22 16 36 38 33 6-1 9-4 8-7-16 5-32-5-38-25-1-4-8-5-8-1z" fill="#fdd835" stroke="#f9a825" stroke-width="2" stroke-linejoin="round"/><path d="M18 22c4 13 14 21 28 23" stroke="#f9a825" stroke-width="2" fill="none"/><path d="M11 17l-2-7 6 3z" fill="#6d4c41"/><circle cx="57" cy="45" r="2" fill="#6d4c41"/></svg>',
+carrots:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-4-6-6-12-4-16 4 3 5 9 4 16zM32 18c2-7 7-12 12-12-1 5-6 10-12 12zM32 18c-5-4-12-5-16-3 4 4 10 5 16 3z" fill="#43a047"/><path d="M20 20h24l-10 40c-1 2-3 2-4 0z" fill="#fb8c00"/><path d="M24 28h6M27 37h5M29 46h4" stroke="#e65100" stroke-width="2" stroke-linecap="round"/></svg>',
+onions:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c2 9 18 14 18 31 0 10-8 16-18 16s-18-6-18-16c0-17 16-22 18-31z" fill="#ab47bc"/><path d="M32 12c-6 10-10 18-10 28s4 14 10 15M32 12c6 10 10 18 10 28s-4 14-10 15" stroke="#7b1fa2" stroke-width="2" fill="none"/><path d="M28 55l-2 5M32 55v6M36 55l2 5" stroke="#8d6e63" stroke-width="2" stroke-linecap="round"/></svg>',
+garlic:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c1 10 20 16 20 32 0 10-9 17-20 17s-20-7-20-17C12 22 31 16 32 6z" fill="#f5f0e6" stroke="#bcaaa4" stroke-width="2"/><path d="M32 14c-4 10-6 20-4 41M32 14c4 10 6 20 4 41M24 26c-5 8-6 18-2 27M40 26c5 8 6 18 2 27" stroke="#bcaaa4" stroke-width="2" fill="none"/><path d="M27 55l-2 5M32 55v6M37 55l2 5" stroke="#a1887f" stroke-width="2" stroke-linecap="round"/></svg>',
+cabbage:'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="24" fill="#8bc34a"/><path d="M32 58V22M32 34l-12-12M32 42l-16-10M32 34l12-12M32 42l16-10" stroke="#c5e1a5" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M12 28c6-14 22-20 34-12 4 3 7 7 8 12-8-8-20-10-30-4-5 3-9 4-12 4z" fill="#558b2f"/></svg>',
+potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" rx="25" ry="17" transform="rotate(-15 32 34)" fill="#c69c6d"/><ellipse cx="26" cy="28" rx="10" ry="4" transform="rotate(-15 26 28)" fill="#fff" opacity=".25"/><circle cx="20" cy="38" r="1.8" fill="#8d6e63"/><circle cx="34" cy="30" r="1.8" fill="#8d6e63"/><circle cx="42" cy="40" r="1.8" fill="#8d6e63"/><circle cx="30" cy="43" r="1.8" fill="#8d6e63"/><circle cx="46" cy="28" r="1.8" fill="#8d6e63"/></svg>'
 };
-var products=[
- {id:'mug-speckle',name:'Speckled Morning Mug',cat:'Mugs',price:24,desc:'12 oz stoneware, oat glaze',c:['#ecdcc8','#c9a27e']},
- {id:'mug-moss',name:'Moss Tumbler',cat:'Mugs',price:19.5,desc:'8 oz, handle-free',c:['#dfe5d8','#8ea38a']},
- {id:'mug-ink',name:'Ink Blue Latte Mug',cat:'Mugs',price:28,desc:'16 oz, deep cobalt',c:['#cfd9e8','#4f6d99']},
- {id:'bowl-ramen',name:'Big Ramen Bowl',cat:'Bowls',price:42,desc:'7.5" wide, rust rim',c:['#f1d6c6','#b5562f']},
- {id:'bowl-nest',name:'Nesting Bowl Set (3)',cat:'Bowls',price:58,desc:'Three sizes, matte white',c:['#f2efe9','#bdb3a6']},
- {id:'vase-bud',name:'Little Bud Vase',cat:'Vases',price:22,desc:'5" tall, sand glaze',c:['#f2e6cf','#cfae6e']},
- {id:'vase-tall',name:'Tall Ember Vase',cat:'Vases',price:85,desc:'14" statement piece',c:['#efcfbf','#8f3b22']},
- {id:'plate-dinner',name:'Everyday Dinner Plate',cat:'Plates',price:32,desc:'10.5", speckled cream',c:['#efe6da','#b89f84']},
- {id:'plate-side',name:'Sage Side Plate',cat:'Plates',price:18,desc:'7", soft green',c:['#e3eadb','#9bb08f']}
+const HOME_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z" fill="currentColor"/></svg>';
+const DATA=[
+{group:'Fruit',items:[
+{id:'apple',name:'Apple',price:2.49,unit:'kg',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4\u20136 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
+{id:'pear',name:'Pear',price:2.99,unit:'kg',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out \u2014 check the neck near the stem for softness.'},
+{id:'banana',name:'Banana',price:1.29,unit:'kg',latin:'Musa spp.',desc:'A naturally packaged, energy-rich tropical fruit that grows in hanging clusters called hands.',c:{Family:'Musaceae',Origin:'Southeast Asia & Papua New Guinea',Calories:'89 kcal',Carbohydrates:'23 g',Fiber:'2.6 g','Key nutrients':'Potassium, vitamin B6, vitamin C',Taste:'Sweet, creamy',Season:'All year round',Storage:'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb, not a tree.'}
+]},
+{group:'Vegetables',items:[
+{id:'carrots',name:'Carrots',price:1.19,unit:'kg',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3\u20134 weeks'},fact:'The first cultivated carrots were purple and yellow \u2014 orange became popular in the 17th century.'},
+{id:'onions',name:'Onions',price:0.99,unit:'kg',latin:'Allium cepa',desc:'A layered bulb that forms the flavour base of countless dishes in cuisines worldwide.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'40 kcal',Carbohydrates:'9 g',Fiber:'1.7 g','Key nutrients':'Vitamin C, vitamin B6, quercetin',Taste:'Pungent raw, sweet when cooked',Season:'Late summer to autumn',Storage:'Cool, dark, dry and ventilated'},fact:'Chilling an onion before cutting reduces the sulfur compounds that make you cry.'},
+{id:'garlic',name:'Garlic',price:0.59,unit:'bulb',latin:'Allium sativum',desc:'An aromatic bulb made of cloves, prized for its intense flavour and long culinary history.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'149 kcal',Carbohydrates:'33 g',Fiber:'2.1 g','Key nutrients':'Manganese, vitamin B6, allicin',Taste:'Sharp and spicy raw, nutty roasted',Season:'Summer',Storage:'Room temperature, dry, ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximises allicin formation.'},
+{id:'cabbage',name:'Cabbage',price:1.79,unit:'head',latin:'Brassica oleracea var. capitata',desc:'A dense, leafy head vegetable that is versatile, inexpensive and keeps for a long time.',c:{Family:'Brassicaceae',Origin:'Europe (Mediterranean)',Calories:'25 kcal',Carbohydrates:'6 g',Fiber:'2.5 g','Key nutrients':'Vitamin C, vitamin K, folate',Taste:'Mild, slightly peppery',Season:'Autumn to winter',Storage:'Fridge, whole, up to 2 months'},fact:'Broccoli, kale, cauliflower and cabbage were all bred from the same wild plant.'},
+{id:'potatoes',name:'Potatoes',price:0.89,unit:'kg',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place \u2014 not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
+]}
 ];
-var byId={};products.forEach(function(p){byId[p.id]=p});
-var money=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
-var FREE_SHIP=75,SHIP=6.95,TAX=0.08,KEY='kilnco-cart';
-var cart={};
-try{cart=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){cart={}}
-Object.keys(cart).forEach(function(id){if(!byId[id]||cart[id]<1)delete cart[id]});
-
-var $=function(id){return document.getElementById(id)};
-var grid=$('grid'),filters=$('filters'),itemsEl=$('items');
-var bg=function(p){return 'background:linear-gradient(135deg,'+p.c[0]+','+p.c[1]+')'};
-var esc=function(s){return s.replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]})};
-
-// Filters
-var cats=['All'].concat(Object.keys(SHAPES)),active='All';
-filters.innerHTML=cats.map(function(c){return '<button type="button" data-cat="'+c+'" aria-pressed="'+(c===active)+'">'+c+'</button>'}).join('');
-filters.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;active=b.dataset.cat;filters.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});renderGrid()});
-
-function renderGrid(){
- grid.innerHTML=products.filter(function(p){return active==='All'||p.cat===active}).map(function(p){
-  return '<article class="card"><div class="thumb" style="'+bg(p)+'">'+SHAPES[p.cat]+'</div><div class="card-body"><span class="cat">'+p.cat+'</span><h3>'+esc(p.name)+'</h3><p class="desc">'+esc(p.desc)+'</p><div class="card-foot"><span class="price">'+money.format(p.price)+'</span><button class="add" type="button" data-id="'+p.id+'" aria-label="Add '+esc(p.name)+' to cart">Add to cart</button></div></div></article>';
- }).join('');
+const ALL=DATA.flatMap(g=>g.items.map(i=>({...i,group:g.group})));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>'$'+n.toFixed(2);
+const priceText=i=>money(i.price)+' / '+i.unit;
+const STORE='produce-nav-state';
+let state={};try{state=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
+function buildNav(){
+ let html='<a class="home-link" href="#/" data-id="">'+HOME_ICON+'Home</a>';
+ DATA.forEach((g,gi)=>{
+  const open=state[g.group]!==false;const lid='grp-'+gi;
+  html+='<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="'+lid+'" data-group="'+esc(g.group)+'"><span>'+esc(g.group)+'<span class="count">('+g.items.length+')</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button><ul id="'+lid+'"'+(open?'':' hidden')+'>';
+  g.items.forEach(i=>{html+='<li><a class="nav-link" href="#/'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><span class="nav-price"><span class="sr-only">, price </span>'+esc(money(i.price))+'</span></a></li>'});
+  html+='</ul></div>';
+ });
+ $('#navGroups').innerHTML=html;
 }
-grid.addEventListener('click',function(e){
- var b=e.target.closest('.add');if(!b)return;
- add(b.dataset.id,1);
- b.textContent='Added ✓';b.classList.add('done');
- setTimeout(function(){b.textContent='Add to cart';b.classList.remove('done')},1200);
+function setGroup(btn,open){btn.setAttribute('aria-expanded',open);document.getElementById(btn.getAttribute('aria-controls')).hidden=!open;state[btn.dataset.group]=open;save()}
+$('#navGroups').addEventListener('click',e=>{
+ const b=e.target.closest('.group-toggle');
+ if(b){setGroup(b,b.getAttribute('aria-expanded')!=='true');return}
+ if(e.target.closest('a'))closeNav();
 });
-
-function save(){try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}}
-function count(){return Object.keys(cart).reduce(function(s,id){return s+cart[id]},0)}
-function add(id,n){
- cart[id]=(cart[id]||0)+n;if(cart[id]<=0)delete cart[id];
- save();renderCart();
- if(n>0){toast(byId[id].name+' added to cart');var bd=$('badge');bd.classList.add('bump');setTimeout(function(){bd.classList.remove('bump')},200)}
+$('#expandAll').onclick=()=>document.querySelectorAll('.group-toggle').forEach(b=>setGroup(b,true));
+$('#collapseAll').onclick=()=>document.querySelectorAll('.group-toggle').forEach(b=>setGroup(b,false));
+function openNav(){document.body.classList.add('nav-open');$('#menuBtn').setAttribute('aria-expanded','true')}
+function closeNav(){document.body.classList.remove('nav-open');$('#menuBtn').setAttribute('aria-expanded','false')}
+$('#menuBtn').onclick=()=>document.body.classList.contains('nav-open')?closeNav():openNav();
+$('#backdrop').onclick=closeNav;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav()});
+function homeView(){
+ let h='<h1>Welcome to the Fresh Produce Guide</h1><p>Choose an item from the navigation on the left, or pick one of the cards below to see its icon, price and key characteristics.</p>';
+ DATA.forEach(g=>{h+='<h2 class="section">'+esc(g.group)+'</h2><div class="cards">'+g.items.map(i=>'<a class="card" href="#/'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><strong class="card-price">'+esc(priceText(i))+'</strong><small>'+esc(i.c.Calories)+' per 100 g</small></a>').join('')+'</div>'});
+ return h;
 }
-function setQty(id,q){if(q<=0)delete cart[id];else cart[id]=Math.min(q,99);save();renderCart()}
-
-function renderCart(){
- var ids=Object.keys(cart),n=count();
- $('badge').textContent=n;
- $('badgeSr').textContent=n+(n===1?' item':' items')+' in cart';
- $('cartTitle').textContent='Your cart'+(n?' ('+n+')':'');
- if(!ids.length){
-  itemsEl.innerHTML='<li class="empty"><p>Your cart is empty.</p><button class="btn" type="button" id="keepShopping">Keep shopping</button></li>';
-  $('summary').hidden=true;return;
- }
- $('summary').hidden=false;
- itemsEl.innerHTML=ids.map(function(id){var p=byId[id],q=cart[id];
-  return '<li class="item"><div class="mini" style="'+bg(p)+'">'+SHAPES[p.cat]+'</div><div><h3>'+esc(p.name)+'</h3><div class="unit">'+money.format(p.price)+' each</div><div class="qty" role="group" aria-label="Quantity for '+esc(p.name)+'"><button type="button" data-act="dec" data-id="'+id+'" aria-label="Decrease quantity">−</button><span aria-live="polite">'+q+'</span><button type="button" data-act="inc" data-id="'+id+'" aria-label="Increase quantity">+</button></div></div><div class="item-right"><strong>'+money.format(p.price*q)+'</strong><button class="remove" type="button" data-act="rm" data-id="'+id+'">Remove</button></div></li>';
- }).join('');
- var sub=ids.reduce(function(s,id){return s+byId[id].price*cart[id]},0);
- var ship=sub>=FREE_SHIP?0:SHIP,tax=sub*TAX;
- $('subtotal').textContent=money.format(sub);
- $('shipping').textContent=ship?money.format(ship):'Free';
- $('tax').textContent=money.format(tax);
- $('total').textContent=money.format(sub+ship+tax);
- $('shipNote').textContent=sub>=FREE_SHIP?'🎉 You\'ve unlocked free shipping!':'Add '+money.format(FREE_SHIP-sub)+' more for free shipping';
- $('shipBar').style.width=Math.min(100,sub/FREE_SHIP*100)+'%';
+function itemView(i){
+ const idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
+ const priceRow='<tr><th scope="row">Price</th><td><strong>'+esc(priceText(i))+'</strong></td></tr>';
+ const rows=priceRow+Object.entries(i.c).map(([k,v])=>'<tr><th scope="row">'+esc(k)+(k==='Calories'||k==='Carbohydrates'||k==='Fiber'?' <small>(per 100 g)</small>':'')+'</th><td>'+esc(v)+'</td></tr>').join('');
+ return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p><div class="price-big" aria-label="Price: '+esc(money(i.price))+' per '+esc(i.unit)+'">'+esc(money(i.price))+' <small>per '+esc(i.unit)+'</small></div></div></div><h2 class="section">Characteristics</h2><table><caption class="sr-only">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><nav class="pager" aria-label="Previous and next item"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></nav></article>';
 }
-itemsEl.addEventListener('click',function(e){
- var b=e.target.closest('button');if(!b)return;
- if(b.id==='keepShopping'){closeCart();document.getElementById('shop').scrollIntoView();return}
- var id=b.dataset.id,act=b.dataset.act;if(!id)return;
- if(act==='inc')setQty(id,cart[id]+1);
- else if(act==='dec')setQty(id,cart[id]-1);
- else if(act==='rm'){var nm=byId[id].name;setQty(id,0);toast(nm+' removed');$('closeCart').focus()}
- if(act!=='rm'){var again=itemsEl.querySelector('[data-act="'+act+'"][data-id="'+id+'"]');(again||$('closeCart')).focus()}
-});
-
-// Drawer
-var drawer=$('cart'),overlay=$('overlay'),cartBtn=$('cartBtn'),lastFocus=null;
-function openCart(){lastFocus=document.activeElement;drawer.classList.add('open');overlay.classList.add('open');drawer.setAttribute('aria-hidden','false');cartBtn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';setTimeout(function(){$('closeCart').focus()},50)}
-function closeCart(){drawer.classList.remove('open');overlay.classList.remove('open');drawer.setAttribute('aria-hidden','true');cartBtn.setAttribute('aria-expanded','false');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
-cartBtn.addEventListener('click',openCart);
-$('closeCart').addEventListener('click',closeCart);
-overlay.addEventListener('click',closeCart);
-document.addEventListener('keydown',function(e){
- if(!drawer.classList.contains('open'))return;
- if(e.key==='Escape'){closeCart();return}
- if(e.key==='Tab'){
-  var f=Array.prototype.filter.call(drawer.querySelectorAll('button,[href],input'),function(el){return el.offsetParent!==null});
-  if(!f.length)return;var first=f[0],last=f[f.length-1];
-  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
-  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
- }
-});
-$('clearCart').addEventListener('click',function(){if(confirm('Remove all items from your cart?')){cart={};save();renderCart();toast('Cart cleared');$('closeCart').focus()}});
-$('checkout').addEventListener('click',function(){
- var total=$('total').textContent;cart={};save();renderCart();
- itemsEl.innerHTML='<li class="empty"><p style="font-size:2rem;margin:0">✓</p><p><strong>Thanks for your order!</strong><br>This is a demo store, so no payment was taken. Order total: '+total+'.</p><button class="btn" type="button" id="keepShopping">Keep shopping</button></li>';
- $('closeCart').focus();
-});
-
-// Toast
-var toastEl=$('toast'),tt;
-function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('show')},2000)}
-
-$('newsletter').addEventListener('submit',function(e){e.preventDefault();toast('Thanks for subscribing!');this.reset()});
-$('yr').textContent=new Date().getFullYear();
-
-renderGrid();renderCart();
-})();
+function route(){
+ const id=location.hash.replace(/^#\/?/,'');
+ const item=ALL.find(i=>i.id===id);
+ const main=$('#main');
+ if(item){
+  main.innerHTML=itemView(item);document.title=item.name+' \u2013 Fresh Produce Guide';
+  const btn=[...document.querySelectorAll('.group-toggle')].find(b=>b.dataset.group===item.group);
+  if(btn&&btn.getAttribute('aria-expanded')!=='true')setGroup(btn,true);
+ }else if(id&&id!=='main'){
+  main.innerHTML='<h1>Not found</h1><p>That page does not exist. <a href="#/">Return home</a>.</p>';document.title='Not found \u2013 Fresh Produce Guide';
+ }else if(id!=='main'||!main.innerHTML){main.innerHTML=homeView();document.title='Fresh Produce Guide'}
+ document.querySelectorAll('#navGroups a').forEach(a=>{if(a.dataset.id===(item?item.id:'')&&(item||!id||id==='main'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ if(id){main.focus({preventScroll:true});window.scrollTo(0,0)}
+}
+buildNav();
+$('#year').textContent=new Date().getFullYear();
+window.addEventListener('hashchange',route);
+route();
 </script>
 </body>
 </html>
