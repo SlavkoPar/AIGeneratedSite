@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fresh Produce Guide</title>
-<meta name="description" content="A small guide to fruit and vegetables with icons and characteristics.">
+<meta name="description" content="A small guide to fruit and vegetables with icons, prices and characteristics.">
 <style>
-:root{--bg:#f6f8f4;--panel:#fff;--text:#1f2a1f;--muted:#5d6b5d;--accent:#2e7d32;--accent-soft:#e6f2e6;--border:#dfe7dc;--header:#1b5e20;--radius:12px;--sidebar:260px}
+:root{--bg:#f6f8f4;--panel:#fff;--text:#1f2a1f;--muted:#5d6b5d;--accent:#2e7d32;--accent-soft:#e6f2e6;--border:#dfe7dc;--header:#1b5e20;--radius:12px;--sidebar:270px;--price:#bf360c}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
 body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:var(--sidebar) 1fr;grid-template-areas:"header header" "nav main" "footer footer";min-height:100vh}
@@ -19,7 +19,7 @@ header .logo{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoratio
 header .logo svg{width:34px;height:34px}
 header p{margin:0 0 0 auto;opacity:.85;font-size:.95rem}
 .menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:.4rem .7rem;font-size:1rem;cursor:pointer}
-nav{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
+nav#sidebar{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);padding:1rem .75rem;overflow-y:auto}
 .nav-tools{display:flex;gap:.4rem;margin:0 .25rem .75rem}
 .nav-tools button{flex:1;font-size:.78rem;padding:.35rem;border:1px solid var(--border);background:var(--bg);border-radius:6px;cursor:pointer;color:var(--muted)}
 .nav-tools button:hover{color:var(--accent);border-color:var(--accent)}
@@ -34,8 +34,10 @@ nav{grid-area:nav;background:var(--panel);border-right:1px solid var(--border);p
 .nav-link,.home-link{display:flex;align-items:center;gap:.65rem;padding:.45rem .7rem;border-radius:8px;text-decoration:none;color:var(--text)}
 .home-link{font-weight:600;margin-bottom:.5rem}
 .nav-link svg,.home-link svg{width:26px;height:26px;flex:none}
+.nav-link .nav-price{margin-left:auto;font-size:.78rem;font-weight:600;color:var(--price);white-space:nowrap}
 .nav-link:hover,.home-link:hover{background:var(--accent-soft)}
 .nav-link[aria-current="page"],.home-link[aria-current="page"]{background:var(--accent);color:#fff}
+.nav-link[aria-current="page"] .nav-price{color:#fff}
 :focus-visible{outline:3px solid #ffb300;outline-offset:2px}
 main{grid-area:main;padding:2rem clamp(1rem,4vw,3rem);max-width:1000px;width:100%}
 main:focus{outline:none}
@@ -45,6 +47,7 @@ main h1{margin-top:0;font-size:clamp(1.6rem,3vw,2.3rem)}
 .card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
 .card svg{width:64px;height:64px}
 .card span{display:block;font-weight:600;margin-top:.4rem}
+.card .card-price{display:block;color:var(--price);font-weight:700;margin-top:.2rem}
 .card small{color:var(--muted)}
 h2.section{margin:2rem 0 1rem;font-size:1.2rem;color:var(--accent)}
 .hero{display:flex;gap:1.5rem;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem}
@@ -53,6 +56,8 @@ h2.section{margin:2rem 0 1rem;font-size:1.2rem;color:var(--accent)}
 .hero h1{margin:0 0 .3rem}
 .tag{display:inline-block;background:var(--accent-soft);color:var(--accent);padding:.15rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600}
 .hero p{margin:.5rem 0 0;color:var(--muted)}
+.hero .price-big{display:inline-flex;align-items:baseline;gap:.35rem;margin-top:.75rem;background:#fbe9e7;color:var(--price);font-size:1.5rem;font-weight:800;padding:.25rem .8rem;border-radius:10px}
+.hero .price-big small{font-size:.85rem;font-weight:600;color:#8d4a33}
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 th,td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
 th{width:38%;color:var(--muted);font-weight:600;background:#fafcf9}
@@ -67,8 +72,8 @@ footer a{color:#a5d6a7}
 body{grid-template-columns:1fr;grid-template-areas:"header" "main" "footer"}
 .menu-btn{display:inline-block}
 header p{display:none}
-nav{position:fixed;top:0;left:0;bottom:0;width:min(80vw,var(--sidebar));z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:4px 0 20px rgba(0,0,0,.2)}
-body.nav-open nav{transform:none}
+nav#sidebar{position:fixed;top:0;left:0;bottom:0;width:min(85vw,var(--sidebar));z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:4px 0 20px rgba(0,0,0,.2)}
+body.nav-open nav#sidebar{transform:none}
 body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30}
 .hero{flex-direction:column;text-align:center}
 }
@@ -91,7 +96,7 @@ body.nav-open .backdrop{display:block;position:fixed;inset:0;background:rgba(0,0
 <main id="main" tabindex="-1"></main>
 <footer>
 <span>&copy; <span id="year"></span> Fresh Produce Guide</span>
-<span>Nutrition values are approximate, per 100&nbsp;g raw.</span>
+<span>Nutrition values are approximate, per 100&nbsp;g raw. Prices are dummy values for demonstration only.</span>
 <a href="#/">Back to home</a>
 </footer>
 <script>
@@ -108,21 +113,23 @@ potatoes:'<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="34" r
 const HOME_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z" fill="currentColor"/></svg>';
 const DATA=[
 {group:'Fruit',items:[
-{id:'apple',name:'Apple',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4\u20136 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
-{id:'pear',name:'Pear',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out \u2014 check the neck near the stem for softness.'},
-{id:'banana',name:'Banana',latin:'Musa spp.',desc:'A naturally packaged, energy-rich tropical fruit that grows in hanging clusters called hands.',c:{Family:'Musaceae',Origin:'Southeast Asia & Papua New Guinea',Calories:'89 kcal',Carbohydrates:'23 g',Fiber:'2.6 g','Key nutrients':'Potassium, vitamin B6, vitamin C',Taste:'Sweet, creamy',Season:'All year round',Storage:'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb, not a tree.'}
+{id:'apple',name:'Apple',price:2.49,unit:'kg',latin:'Malus domestica',desc:'Crisp, juicy and one of the most widely grown fruits in the world, with thousands of varieties.',c:{Family:'Rosaceae (rose family)',Origin:'Central Asia (Kazakhstan)',Calories:'52 kcal',Carbohydrates:'14 g',Fiber:'2.4 g','Key nutrients':'Vitamin C, potassium, polyphenols',Taste:'Sweet to tart, crunchy',Season:'Late summer to autumn',Storage:'Fridge, up to 4\u20136 weeks'},fact:'Apples float in water because about 25% of their volume is air.'},
+{id:'pear',name:'Pear',price:2.99,unit:'kg',latin:'Pyrus communis',desc:'A soft, buttery fruit that ripens best off the tree and has a distinctive gritty texture.',c:{Family:'Rosaceae (rose family)',Origin:'Europe & Western Asia',Calories:'57 kcal',Carbohydrates:'15 g',Fiber:'3.1 g','Key nutrients':'Vitamin C, vitamin K, copper',Taste:'Sweet, juicy, mellow',Season:'Late summer to winter',Storage:'Ripen at room temp, then fridge'},fact:'Pears ripen from the inside out \u2014 check the neck near the stem for softness.'},
+{id:'banana',name:'Banana',price:1.29,unit:'kg',latin:'Musa spp.',desc:'A naturally packaged, energy-rich tropical fruit that grows in hanging clusters called hands.',c:{Family:'Musaceae',Origin:'Southeast Asia & Papua New Guinea',Calories:'89 kcal',Carbohydrates:'23 g',Fiber:'2.6 g','Key nutrients':'Potassium, vitamin B6, vitamin C',Taste:'Sweet, creamy',Season:'All year round',Storage:'Room temperature, away from other fruit'},fact:'Botanically, a banana is a berry, and the banana plant is a giant herb, not a tree.'}
 ]},
 {group:'Vegetables',items:[
-{id:'carrots',name:'Carrots',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3\u20134 weeks'},fact:'The first cultivated carrots were purple and yellow \u2014 orange became popular in the 17th century.'},
-{id:'onions',name:'Onions',latin:'Allium cepa',desc:'A layered bulb that forms the flavour base of countless dishes in cuisines worldwide.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'40 kcal',Carbohydrates:'9 g',Fiber:'1.7 g','Key nutrients':'Vitamin C, vitamin B6, quercetin',Taste:'Pungent raw, sweet when cooked',Season:'Late summer to autumn',Storage:'Cool, dark, dry and ventilated'},fact:'Chilling an onion before cutting reduces the sulfur compounds that make you cry.'},
-{id:'garlic',name:'Garlic',latin:'Allium sativum',desc:'An aromatic bulb made of cloves, prized for its intense flavour and long culinary history.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'149 kcal',Carbohydrates:'33 g',Fiber:'2.1 g','Key nutrients':'Manganese, vitamin B6, allicin',Taste:'Sharp and spicy raw, nutty roasted',Season:'Summer',Storage:'Room temperature, dry, ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximises allicin formation.'},
-{id:'cabbage',name:'Cabbage',latin:'Brassica oleracea var. capitata',desc:'A dense, leafy head vegetable that is versatile, inexpensive and keeps for a long time.',c:{Family:'Brassicaceae',Origin:'Europe (Mediterranean)',Calories:'25 kcal',Carbohydrates:'6 g',Fiber:'2.5 g','Key nutrients':'Vitamin C, vitamin K, folate',Taste:'Mild, slightly peppery',Season:'Autumn to winter',Storage:'Fridge, whole, up to 2 months'},fact:'Broccoli, kale, cauliflower and cabbage were all bred from the same wild plant.'},
-{id:'potatoes',name:'Potatoes',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place \u2014 not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
+{id:'carrots',name:'Carrots',price:1.19,unit:'kg',latin:'Daucus carota subsp. sativus',desc:'A crunchy root vegetable, famous for its bright orange colour and high beta-carotene content.',c:{Family:'Apiaceae',Origin:'Persia (modern Iran & Afghanistan)',Calories:'41 kcal',Carbohydrates:'10 g',Fiber:'2.8 g','Key nutrients':'Vitamin A (beta-carotene), vitamin K, potassium',Taste:'Sweet, earthy',Season:'Summer to autumn',Storage:'Fridge, greens removed, 3\u20134 weeks'},fact:'The first cultivated carrots were purple and yellow \u2014 orange became popular in the 17th century.'},
+{id:'onions',name:'Onions',price:0.99,unit:'kg',latin:'Allium cepa',desc:'A layered bulb that forms the flavour base of countless dishes in cuisines worldwide.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'40 kcal',Carbohydrates:'9 g',Fiber:'1.7 g','Key nutrients':'Vitamin C, vitamin B6, quercetin',Taste:'Pungent raw, sweet when cooked',Season:'Late summer to autumn',Storage:'Cool, dark, dry and ventilated'},fact:'Chilling an onion before cutting reduces the sulfur compounds that make you cry.'},
+{id:'garlic',name:'Garlic',price:0.59,unit:'bulb',latin:'Allium sativum',desc:'An aromatic bulb made of cloves, prized for its intense flavour and long culinary history.',c:{Family:'Amaryllidaceae',Origin:'Central Asia',Calories:'149 kcal',Carbohydrates:'33 g',Fiber:'2.1 g','Key nutrients':'Manganese, vitamin B6, allicin',Taste:'Sharp and spicy raw, nutty roasted',Season:'Summer',Storage:'Room temperature, dry, ventilated'},fact:'Crushing garlic and waiting 10 minutes before cooking maximises allicin formation.'},
+{id:'cabbage',name:'Cabbage',price:1.79,unit:'head',latin:'Brassica oleracea var. capitata',desc:'A dense, leafy head vegetable that is versatile, inexpensive and keeps for a long time.',c:{Family:'Brassicaceae',Origin:'Europe (Mediterranean)',Calories:'25 kcal',Carbohydrates:'6 g',Fiber:'2.5 g','Key nutrients':'Vitamin C, vitamin K, folate',Taste:'Mild, slightly peppery',Season:'Autumn to winter',Storage:'Fridge, whole, up to 2 months'},fact:'Broccoli, kale, cauliflower and cabbage were all bred from the same wild plant.'},
+{id:'potatoes',name:'Potatoes',price:0.89,unit:'kg',latin:'Solanum tuberosum',desc:'A starchy tuber and one of the world\'s most important staple foods.',c:{Family:'Solanaceae (nightshade)',Origin:'Andes, South America',Calories:'77 kcal',Carbohydrates:'17 g',Fiber:'2.2 g','Key nutrients':'Potassium, vitamin C, vitamin B6',Taste:'Mild, earthy, starchy',Season:'Summer to autumn',Storage:'Cool, dark place \u2014 not the fridge'},fact:'In 1995 the potato became the first vegetable grown in space.'}
 ]}
 ];
 const ALL=DATA.flatMap(g=>g.items.map(i=>({...i,group:g.group})));
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>'$'+n.toFixed(2);
+const priceText=i=>money(i.price)+' / '+i.unit;
 const STORE='produce-nav-state';
 let state={};try{state=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
@@ -131,7 +138,7 @@ function buildNav(){
  DATA.forEach((g,gi)=>{
   const open=state[g.group]!==false;const lid='grp-'+gi;
   html+='<div class="group"><button type="button" class="group-toggle" aria-expanded="'+open+'" aria-controls="'+lid+'" data-group="'+esc(g.group)+'"><span>'+esc(g.group)+'<span class="count">('+g.items.length+')</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button><ul id="'+lid+'"'+(open?'':' hidden')+'>';
-  g.items.forEach(i=>{html+='<li><a class="nav-link" href="#/'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span></a></li>'});
+  g.items.forEach(i=>{html+='<li><a class="nav-link" href="#/'+i.id+'" data-id="'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><span class="nav-price"><span class="sr-only">, price </span>'+esc(money(i.price))+'</span></a></li>'});
   html+='</ul></div>';
  });
  $('#navGroups').innerHTML=html;
@@ -150,14 +157,15 @@ $('#menuBtn').onclick=()=>document.body.classList.contains('nav-open')?closeNav(
 $('#backdrop').onclick=closeNav;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav()});
 function homeView(){
- let h='<h1>Welcome to the Fresh Produce Guide</h1><p>Choose an item from the navigation on the left, or pick one of the cards below to see its icon and key characteristics.</p>';
- DATA.forEach(g=>{h+='<h2 class="section">'+esc(g.group)+'</h2><div class="cards">'+g.items.map(i=>'<a class="card" href="#/'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><small>'+esc(i.c.Calories)+'</small></a>').join('')+'</div>'});
+ let h='<h1>Welcome to the Fresh Produce Guide</h1><p>Choose an item from the navigation on the left, or pick one of the cards below to see its icon, price and key characteristics.</p>';
+ DATA.forEach(g=>{h+='<h2 class="section">'+esc(g.group)+'</h2><div class="cards">'+g.items.map(i=>'<a class="card" href="#/'+i.id+'">'+ICONS[i.id]+'<span>'+esc(i.name)+'</span><strong class="card-price">'+esc(priceText(i))+'</strong><small>'+esc(i.c.Calories)+' per 100 g</small></a>').join('')+'</div>'});
  return h;
 }
 function itemView(i){
  const idx=ALL.indexOf(i),prev=ALL[(idx-1+ALL.length)%ALL.length],next=ALL[(idx+1)%ALL.length];
- const rows=Object.entries(i.c).map(([k,v])=>'<tr><th scope="row">'+esc(k)+(k==='Calories'||k==='Carbohydrates'||k==='Fiber'?' <small>(per 100 g)</small>':'')+'</th><td>'+esc(v)+'</td></tr>').join('');
- return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p></div></div><h2 class="section">Characteristics</h2><table><caption class="sr-only">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><nav class="pager" aria-label="Previous and next item"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></nav></article>';
+ const priceRow='<tr><th scope="row">Price</th><td><strong>'+esc(priceText(i))+'</strong></td></tr>';
+ const rows=priceRow+Object.entries(i.c).map(([k,v])=>'<tr><th scope="row">'+esc(k)+(k==='Calories'||k==='Carbohydrates'||k==='Fiber'?' <small>(per 100 g)</small>':'')+'</th><td>'+esc(v)+'</td></tr>').join('');
+ return '<article><div class="hero"><div class="big">'+ICONS[i.id]+'</div><div><span class="tag">'+esc(i.group)+'</span><h1>'+esc(i.name)+'</h1><em>'+esc(i.latin)+'</em><p>'+esc(i.desc)+'</p><div class="price-big" aria-label="Price: '+esc(money(i.price))+' per '+esc(i.unit)+'">'+esc(money(i.price))+' <small>per '+esc(i.unit)+'</small></div></div></div><h2 class="section">Characteristics</h2><table><caption class="sr-only">Characteristics of '+esc(i.name)+'</caption><tbody>'+rows+'</tbody></table><div class="fact"><strong>Did you know?</strong> '+esc(i.fact)+'</div><nav class="pager" aria-label="Previous and next item"><a href="#/'+prev.id+'">&larr; '+esc(prev.name)+'</a><a href="#/'+next.id+'">'+esc(next.name)+' &rarr;</a></nav></article>';
 }
 function route(){
  const id=location.hash.replace(/^#\/?/,'');
