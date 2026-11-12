@@ -1,12 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { findItem, formatPrice } from '../data';
+import { useCart } from '../cart';
 import ItemIcon from '../components/ItemIcon';
+import QuantityStepper from '../components/QuantityStepper';
 import NotFound from './NotFound';
 
 export default function ItemPage() {
   const { slug } = useParams<{ slug: string }>();
   const found = findItem(slug);
+  const { add, getQuantity } = useCart();
+  const [qty, setQty] = useState<number>(1);
+
+  useEffect(() => {
+    setQty(1);
+  }, [slug]);
 
   useEffect(() => {
     document.title = found ? found.item.name + ' - Fresh Market' : 'Fresh Market';
@@ -18,6 +26,7 @@ export default function ItemPage() {
   if (!found) return <NotFound />;
 
   const { item, group } = found;
+  const inCart = getQuantity(item.slug);
 
   return (
     <article className="page">
@@ -41,6 +50,18 @@ export default function ItemPage() {
             <span className="price-value">{formatPrice(item.price)}</span>
             <span className="price-unit">{item.unit}</span>
           </p>
+          <div className="buy-row">
+            <QuantityStepper value={qty} onChange={setQty} label={'Quantity of ' + item.name} />
+            <button type="button" className="btn" onClick={() => add(item.slug, qty)}>
+              Add to cart
+            </button>
+          </div>
+          {inCart > 0 && (
+            <p className="in-cart">
+              {inCart} in your cart.{' '}
+              <Link to="/cart" className="text-link">View cart</Link>
+            </p>
+          )}
         </div>
       </div>
 

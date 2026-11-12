@@ -5,11 +5,14 @@ import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import ItemPage from './pages/ItemPage';
+import CartPage from './pages/CartPage';
 import NotFound from './pages/NotFound';
+import { useCart } from './cart';
 
 export default function App() {
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const location = useLocation();
+  const { announcement } = useCart();
 
   useEffect(() => {
     setNavOpen(false);
@@ -39,10 +42,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/item/:slug" element={<ItemPage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
+      <div className="visually-hidden" role="status" aria-live="polite">
+        {announcement.text && <span key={announcement.id}>{announcement.text}</span>}
+      </div>
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { formatPrice, groups } from '../data';
+import { useCart } from '../cart';
 import ItemIcon from '../components/ItemIcon';
 
 export default function Home() {
+  const { add } = useCart();
+
   return (
     <div className="page">
       <h1>Welcome to Fresh Market</h1>
@@ -16,8 +19,8 @@ export default function Home() {
           <h2 id={'home-' + group.id}>{group.name}</h2>
           <ul className="card-grid">
             {group.items.map((item) => (
-              <li key={item.slug}>
-                <Link to={'/item/' + item.slug} className="card">
+              <li key={item.slug} className="card">
+                <Link to={'/item/' + item.slug} className="card-link">
                   <span className="card-icon">
                     <ItemIcon slug={item.slug} size={56} />
                   </span>
@@ -26,6 +29,14 @@ export default function Home() {
                     {formatPrice(item.price)} <small>{item.unit}</small>
                   </span>
                 </Link>
+                <button
+                  type="button"
+                  className="btn btn-secondary card-add"
+                  aria-label={'Add ' + item.name + ' to cart'}
+                  onClick={() => add(item.slug, 1)}
+                >
+                  Add to cart
+                </button>
               </li>
             ))}
           </ul>
