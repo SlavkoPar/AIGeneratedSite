@@ -1,3 +1,0 @@
-# Prompt
-
-a landing page
