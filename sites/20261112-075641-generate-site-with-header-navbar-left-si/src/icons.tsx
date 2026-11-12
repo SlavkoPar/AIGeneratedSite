@@ -126,3 +126,46 @@ export function ChevronIcon({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
+
+export function CartIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      className='cart-icon'
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 24 24'
+      width={size}
+      height={size}
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      aria-hidden='true'
+      focusable='false'
+    >
+      <path d='M3 4h2.500l2.300 10.500h10.200l2-7.500H6.600' />
+      <circle cx='9.500' cy='19' r='1.400' />
+      <circle cx='17' cy='19' r='1.400' />
+    </svg>
+  );
+}
+
+export function TrashIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 24 24'
+      width={size}
+      height={size}
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      aria-hidden='true'
+      focusable='false'
+    >
+      <path d='M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3' />
+    </svg>
+  );
+}

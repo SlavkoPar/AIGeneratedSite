@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useCart } from '../cart';
 import { groups } from '../data';
-import { ChevronIcon, ItemIcon } from '../icons';
+import { CartIcon, ChevronIcon, ItemIcon } from '../icons';
 
 interface SidebarProps {
   open: boolean;
@@ -20,6 +21,7 @@ function buildState(value: boolean): ExpandedState {
 export default function Sidebar({ open }: SidebarProps) {
   const [expanded, setExpanded] = useState<ExpandedState>(() => buildState(true));
   const location = useLocation();
+  const { count } = useCart();
 
   // Make sure the group of the currently viewed item is visible after navigation.
   useEffect(() => {
@@ -43,6 +45,16 @@ export default function Sidebar({ open }: SidebarProps) {
             <path d='M3 11l9-7 9 7M5 10v10h14V10' />
           </svg>
           Overview
+        </NavLink>
+        <NavLink to='/cart' className={({ isActive }) => (isActive ? 'nav-home nav-cart active' : 'nav-home nav-cart')}>
+          <CartIcon size={20} />
+          Cart
+          {count > 0 && (
+            <span className='nav-count'>
+              {count}
+              <span className='visually-hidden'>{count === 1 ? ' item in cart' : ' items in cart'}</span>
+            </span>
+          )}
         </NavLink>
 
         <div className='nav-tools'>

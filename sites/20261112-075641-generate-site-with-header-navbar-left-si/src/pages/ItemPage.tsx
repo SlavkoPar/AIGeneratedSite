@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { MAX_QUANTITY, useCart } from '../cart';
+import QuantityStepper from '../components/QuantityStepper';
 import { allItems, findItem, formatPrice } from '../data';
-import { ItemIcon } from '../icons';
+import { CartIcon, ItemIcon } from '../icons';
 import NotFound from './NotFound';
 
 interface Characteristic {
@@ -12,16 +14,24 @@ interface Characteristic {
 export default function ItemPage() {
   const { id } = useParams<{ id: string }>();
   const found = findItem(id);
+  const { addItem, quantityOf } = useCart();
+  const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
     document.title = found ? found.item.name + ' | Fresh Market' : 'Not found | Fresh Market';
   }, [found]);
+
+  // Reset the quantity picker when switching to another product.
+  useEffect(() => {
+    setQuantity(1);
+  }, [id]);
 
   if (!found) {
     return <NotFound />;
   }
 
   const { item, group } = found;
+  const inCart = quantityOf(item.id);
   const index = allItems.findIndex((i) => i.id === item.id);
   const prev = index > 0 ? allItems[index - 1] : undefined;
   const next = index < allItems.length - 1 ? allItems[index + 1] : undefined;
@@ -61,6 +71,19 @@ export default function ItemPage() {
             <span className='price-unit'>{item.unit}</span>
           </div>
           <p className='price-note'>Dummy price, for illustration only.</p>
+
+          <div className='buy-row'>
+            <QuantityStepper value={quantity} onChange={setQuantity} itemName={item.name} max={MAX_QUANTITY} />
+            <button type='button' className='btn btn-primary' onClick={() => addItem(item.id, quantity)}>
+              <CartIcon size={20} />
+              Add to cart
+            </button>
+          </div>
+          {inCart > 0 && (
+            <p className='in-cart-note'>
+              {inCart} in your cart. <Link to='/cart'>View cart</Link>
+            </p>
+          )}
         </div>
       </header>
 

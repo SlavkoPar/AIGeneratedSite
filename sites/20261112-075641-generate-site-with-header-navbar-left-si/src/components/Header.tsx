@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useCart } from '../cart';
+import { CartIcon } from '../icons';
 
 interface HeaderProps {
   navOpen: boolean;
@@ -6,6 +8,9 @@ interface HeaderProps {
 }
 
 export default function Header({ navOpen, onToggleNav }: HeaderProps) {
+  const { count } = useCart();
+  const cartLabel = 'Shopping cart, ' + count + (count === 1 ? ' item' : ' items');
+
   return (
     <header className='header'>
       <button
@@ -32,7 +37,18 @@ export default function Header({ navOpen, onToggleNav }: HeaderProps) {
           <span className='brand-sub'>Fruit and vegetables catalogue</span>
         </span>
       </Link>
-      <span className='header-badge'>Demo prices</span>
+      <div className='header-actions'>
+        <span className='header-badge'>Demo prices</span>
+        <Link to='/cart' className='cart-link' aria-label={cartLabel}>
+          <CartIcon />
+          <span className='cart-link-text'>Cart</span>
+          {count > 0 && (
+            <span className='cart-count' aria-hidden='true'>
+              {count}
+            </span>
+          )}
+        </Link>
+      </div>
     </header>
   );
 }

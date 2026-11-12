@@ -3,8 +3,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
+import Toast from './components/Toast';
 import Home from './pages/Home';
 import ItemPage from './pages/ItemPage';
+import CartPage from './pages/CartPage';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -37,10 +39,12 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/item/:id' element={<ItemPage />} />
+          <Route path='/cart' element={<CartPage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
+      <Toast />
     </div>
   );
 }

@@ -18,3 +18,7 @@ Vegetables
 - Potatoes
 For each item create icon (not for Groups) and create linked page with icon and some characteristics, including dummy price.
 Enable Expand/Collapse of the groups.
+
+# Refinement
+
+Add shopping cart to the site.
