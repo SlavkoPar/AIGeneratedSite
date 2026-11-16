@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fern &amp; Kiln — Handmade ceramics</title>
+<meta name="description" content="Small-batch handmade ceramics. Browse mugs, vases, bowls and plates and add them to your cart.">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/products.js" defer></script>
+<script src="js/cart.js" defer></script>
+<script src="js/main.js" defer></script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">Fern &amp; Kiln</a>
+    <nav aria-label="Main">
+      <a href="index.html" aria-current="page">Shop</a>
+      <a class="cart-btn" href="cart.html" data-cart-open>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+        <span>Cart</span>
+        <span class="badge" data-cart-count aria-hidden="true">0</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Small-batch stoneware</p>
+      <h1>Everyday pieces, thrown by hand.</h1>
+      <p class="lead">Each piece is glazed and fired in our studio. Free shipping on orders over $75.</p>
+      <a class="btn" href="#products">Browse the collection</a>
+    </div>
+  </section>
+
+  <section class="wrap section" id="products" aria-labelledby="products-title">
+    <h2 id="products-title">The collection</h2>
+    <ul class="grid" data-products>
+      <li class="noscript-note">Loading products…</li>
+    </ul>
+    <noscript><p>JavaScript is needed to browse products and use the cart.</p></noscript>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Fern &amp; Kiln · Demo storefront — no real orders are placed.</p></div>
+</footer>
+
+<dialog id="cart-drawer" class="drawer" aria-labelledby="drawer-title">
+  <div class="drawer-head">
+    <h2 id="drawer-title">Your cart</h2>
+    <button type="button" class="icon-btn" data-cart-close aria-label="Close cart">×</button>
+  </div>
+  <div class="drawer-body" data-cart-lines tabindex="-1"></div>
+  <div class="drawer-foot">
+    <p class="row"><span>Subtotal</span><strong data-cart-subtotal>$0.00</strong></p>
+    <p class="note" data-cart-shipnote></p>
+    <a class="btn block" href="cart.html">View cart &amp; checkout</a>
+    <button type="button" class="btn ghost block" data-cart-close>Continue shopping</button>
+  </div>
+</dialog>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>
+</body>
+</html>
