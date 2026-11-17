@@ -8,6 +8,33 @@
   var backdrop = document.querySelector('.backdrop');
   var mobile = window.matchMedia('(max-width: 799px)');
 
+  /* Navigation groups: remember which ones are expanded or collapsed */
+  function readState(key) {
+    try { return window.localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function writeState(key, value) {
+    try { window.localStorage.setItem(key, value); } catch (e) { /* storage unavailable */ }
+  }
+
+  document.querySelectorAll('.nav-group').forEach(function (group) {
+    var key = 'nav-group-' + (group.getAttribute('data-group') || '');
+    var stored = readState(key);
+    var hasCurrent = !!group.querySelector('[aria-current="page"]');
+
+    if (hasCurrent) {
+      group.open = true;
+    } else if (stored === 'closed') {
+      group.open = false;
+    } else if (stored === 'open') {
+      group.open = true;
+    }
+
+    group.addEventListener('toggle', function () {
+      writeState(key, group.open ? 'open' : 'closed');
+    });
+  });
+
+  /* Mobile drawer */
   function setOpen(open) {
     if (!toggle || !nav) { return; }
     nav.classList.toggle('open', open);
