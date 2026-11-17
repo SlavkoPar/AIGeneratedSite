@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About – Sidebar Site</title>
+<meta name="description" content="How the header, left navigation and footer layout is put together.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" type="button" aria-controls="sidenav" aria-expanded="false" aria-label="Open navigation">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4f46e5"/><rect x="6" y="7" width="6" height="18" rx="2" fill="#fff"/><rect x="15" y="7" width="11" height="18" rx="2" fill="#c7d2fe"/></svg>
+    <span>Sidebar Site</span>
+  </a>
+  <p class="header-tag">Header · Left navigation · Footer</p>
+</header>
+
+<nav class="sidenav" id="sidenav" aria-label="Main">
+  <ul>
+    <li><a href="index.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Home</a></li>
+    <li><a href="features.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Features</a></li>
+    <li><a href="about.html" aria-current="page">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      About</a></li>
+  </ul>
+</nav>
+<div class="backdrop" aria-hidden="true"></div>
+
+<main id="main" tabindex="-1">
+  <h1>About the layout</h1>
+  <p class="lead">A short tour of how the page is put together.</p>
+
+  <div class="prose">
+    <h2>Structure</h2>
+    <p>Each page uses four landmarks: a <code>header</code>, a <code>nav</code>, a <code>main</code> area and a <code>footer</code>. They are arranged with CSS Grid so the header and footer span the full width while the navigation and content share the row between them.</p>
+
+    <h2>Adding a page</h2>
+    <ol>
+      <li>Copy any existing page and rename the file.</li>
+      <li>Replace what is inside <code>main</code> with your own content.</li>
+      <li>Add a link to the new page in the left navigation and footer of every page.</li>
+      <li>Move <code>aria-current="page"</code> to the link that matches the new page.</li>
+    </ol>
+
+    <h2>Changing the look</h2>
+    <p>Colours, the sidebar width and spacing are set as variables at the top of <code>css/style.css</code>. Change them once and every page follows.</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span data-year>2025</span> Sidebar Site</p>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

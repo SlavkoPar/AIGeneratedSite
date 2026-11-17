@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Features – Sidebar Site</title>
+<meta name="description" content="What the header, left navigation and footer layout does.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" type="button" aria-controls="sidenav" aria-expanded="false" aria-label="Open navigation">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4f46e5"/><rect x="6" y="7" width="6" height="18" rx="2" fill="#fff"/><rect x="15" y="7" width="11" height="18" rx="2" fill="#c7d2fe"/></svg>
+    <span>Sidebar Site</span>
+  </a>
+  <p class="header-tag">Header · Left navigation · Footer</p>
+</header>
+
+<nav class="sidenav" id="sidenav" aria-label="Main">
+  <ul>
+    <li><a href="index.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Home</a></li>
+    <li><a href="features.html" aria-current="page">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Features</a></li>
+    <li><a href="about.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      About</a></li>
+  </ul>
+</nav>
+<div class="backdrop" aria-hidden="true"></div>
+
+<main id="main" tabindex="-1">
+  <h1>Features</h1>
+  <p class="lead">Everything the layout does, on every page.</p>
+
+  <div class="cards">
+    <article class="card">
+      <h3>Responsive</h3>
+      <p>Two columns on wide screens. Below 800 pixels the navigation becomes a slide-in drawer opened from the header.</p>
+    </article>
+    <article class="card">
+      <h3>Keyboard friendly</h3>
+      <p>A skip link, visible focus outlines, and a drawer that closes with the Escape key.</p>
+    </article>
+    <article class="card">
+      <h3>Current page marker</h3>
+      <p>The link for the page you are on is highlighted in the navigation and announced to screen readers.</p>
+    </article>
+    <article class="card">
+      <h3>Sticky footer</h3>
+      <p>The footer stays at the bottom of the window on short pages and follows the content on long ones.</p>
+    </article>
+    <article class="card">
+      <h3>No dependencies</h3>
+      <p>Plain HTML, one stylesheet and one small script. Nothing is loaded from other servers.</p>
+    </article>
+    <article class="card">
+      <h3>Works without scripts</h3>
+      <p>If JavaScript is unavailable, the navigation simply appears below the header instead of in a drawer.</p>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span data-year>2025</span> Sidebar Site</p>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

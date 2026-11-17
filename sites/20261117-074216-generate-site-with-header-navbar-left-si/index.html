@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home – Sidebar Site</title>
+<meta name="description" content="A clean site layout with a header, a left-side navigation bar and a footer.">
+<link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" type="button" aria-controls="sidenav" aria-expanded="false" aria-label="Open navigation">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4f46e5"/><rect x="6" y="7" width="6" height="18" rx="2" fill="#fff"/><rect x="15" y="7" width="11" height="18" rx="2" fill="#c7d2fe"/></svg>
+    <span>Sidebar Site</span>
+  </a>
+  <p class="header-tag">Header · Left navigation · Footer</p>
+</header>
+
+<nav class="sidenav" id="sidenav" aria-label="Main">
+  <ul>
+    <li><a href="index.html" aria-current="page">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Home</a></li>
+    <li><a href="features.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Features</a></li>
+    <li><a href="about.html">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      About</a></li>
+  </ul>
+</nav>
+<div class="backdrop" aria-hidden="true"></div>
+
+<main id="main" tabindex="-1">
+  <section class="hero">
+    <h1>A simple, solid page layout</h1>
+    <p class="lead">This site is built around three fixed parts: a header across the top, a navigation bar down the left side, and a footer at the bottom. The content you are reading sits in the middle.</p>
+    <p><a class="button" href="features.html">See the features</a> <a class="button button-ghost" href="about.html">About the layout</a></p>
+  </section>
+
+  <section aria-labelledby="parts-title">
+    <h2 id="parts-title">The three parts</h2>
+    <div class="cards">
+      <article class="card">
+        <h3>Header</h3>
+        <p>Stays at the top of the screen while you scroll and holds the site name. On small screens it also holds the menu button.</p>
+      </article>
+      <article class="card">
+        <h3>Left navigation</h3>
+        <p>A vertical list of links that stays in view on wide screens and slides in as a drawer on phones and tablets.</p>
+      </article>
+      <article class="card">
+        <h3>Footer</h3>
+        <p>Sits at the bottom of every page, even when the page content is short, with secondary links and a copyright line.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span data-year>2025</span> Sidebar Site</p>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html">Features</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
