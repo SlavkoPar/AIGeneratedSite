@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact – My Site</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/layout.js" defer></script>
+</head>
+<body data-page="contact.html">
+<div id="site-header"></div>
+<div class="shell">
+<aside id="site-nav"></aside>
+<main id="main" tabindex="-1">
+<h1>Contact</h1>
+<p>Get in touch using the form below.</p>
+<form class="form" onsubmit="event.preventDefault();this.querySelector('output').textContent='Thanks! Your message was noted.';this.reset();">
+<label for="n">Name</label><input id="n" required>
+<label for="m">Message</label><textarea id="m" rows="4" required></textarea>
+<button type="submit">Send</button>
+<output role="status"></output>
+</form>
+</main>
+</div>
+<div id="site-footer"></div>
+</body>
+</html>
